@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'MBXGraphs', :exclusive => true do
+  pod "MBXGraphs", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "MBXGraphs", :path => "../"
+
+  
+end
