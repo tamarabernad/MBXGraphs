@@ -20,7 +20,7 @@ it, simply add the following line to your Podfile:
 
 ## Author
 
-tamarabernad, tamara@codedazur.es
+Tamara Bernad, tamara.bernad@gmail.com
 
 ## License
 
