@@ -11,25 +11,15 @@
 
 
 @interface MBXLineGraphView()
-@property (nonatomic, strong) NSArray *graphVMs;
+@property (nonatomic, strong) NSMutableArray *graphVMs;
 @property (nonatomic, strong) CAShapeLayer *graphLayer;
+
 @end
 
 @implementation MBXLineGraphView
 
 + (Class)layerClass{
     return [CAShapeLayer class];
-}
-
-////////////////////////////////
-#pragma mark - Public methods
-////////////////////////////////
-- (void)setGraphVMs:(NSArray *)graphs{
-    _graphVMs = graphs;
-    for (MBXLineGraphVM *lineGraphVM in self.graphVMs) {
-        [self generatePointsInViewForGraphModel:lineGraphVM];
-    }
-    [self drawGraph];
 }
 ////////////////////////////////
 #pragma mark - Life cycle
@@ -44,8 +34,15 @@
     }
     return self;
 }
-
-
+////////////////////////////////
+#pragma mark - Lazy getters
+////////////////////////////////
+- (NSMutableArray *)graphVMs{
+    if(!_graphVMs){
+        _graphVMs = [NSMutableArray new];
+    }
+    return _graphVMs;
+}
 ////////////////////////////////
 #pragma mark - Private methods
 ////////////////////////////////
@@ -56,10 +53,12 @@
     self.graphLayer.frame = self.bounds;
     [self clearGraph];
     
-    for (MBXLineGraphVM *lineGraphVM in self.graphVMs) {
-        if (lineGraphVM.pointsInView.count > 0) {
-            [self drawGraphWithGraphModel:lineGraphVM];
-        }
+    NSInteger nGraphs = [self.dataSource graphViewNumberOfGraphs:self];
+    MBXLineGraphVM *lineGraph;
+    for (NSInteger i=0; i<nGraphs; i++) {
+        lineGraph = [self graphVMForIndex:i];
+        [self.dataSource graphView:self configureGraphVM:lineGraph];
+        [self drawGraphWithGraphModel:lineGraph];
     }
 }
 - (void)clearGraph{
@@ -160,7 +159,7 @@
 
 }
 ////////////////////////////////
-#pragma mark Points Conversino
+#pragma mark Points Conversion
 ////////////////////////////////
 - (void)generatePointsInViewForGraphModels:(NSArray *)graphModels{
     for (MBXLineGraphVM *graphVM in graphModels) {
@@ -210,5 +209,14 @@
         [path addLineToPoint:point];
     }
     return path;
+}
+////////////////////////////////
+#pragma mark helpers
+////////////////////////////////
+- (MBXLineGraphVM *)graphVMForIndex:(NSInteger)index{
+    if (index >= self.graphVMs.count) {
+        [self.graphVMs insertObject:[MBXGraphVM new] atIndex:index];
+    }
+    return [self.graphVMs objectAtIndex:index];
 }
 @end

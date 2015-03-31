@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MBXLineGraphVM.h"
 #import "MBXGraphVM.h"
+#import "MBXGraphDataSource.h"
+
 @interface MBXLineGraphView : UIView
-- (void)setGraphVMs:(NSArray *)graphs;
+@property (nonatomic, assign)   id <MBXGraphDataSource> dataSource;
+
 @end

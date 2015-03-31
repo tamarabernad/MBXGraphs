@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 struct MBXValueRange {
     double min;
     double max;
@@ -14,8 +15,7 @@ struct MBXValueRange {
 };
 typedef struct MBXValueRange MBXValueRange;
 
-CG_INLINE MBXValueRange
-MBXValueRangeMake(double min, double max)
+CG_INLINE MBXValueRange MBXValueRangeMake(double min, double max)
 {
     MBXValueRange range; range.min = min; range.max = max; return range;
 }
