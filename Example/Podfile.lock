@@ -1,0 +1,14 @@
+PODS:
+  - MBXGraphs (0.1.0)
+
+DEPENDENCIES:
+  - MBXGraphs (from `../`)
+
+EXTERNAL SOURCES:
+  MBXGraphs:
+    :path: ../
+
+SPEC CHECKSUMS:
+  MBXGraphs: 2f5db635bff815bd41e97ec722e139781270f0da
+
+COCOAPODS: 0.35.0
