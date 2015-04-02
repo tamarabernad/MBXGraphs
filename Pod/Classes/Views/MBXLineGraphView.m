@@ -53,11 +53,11 @@
     self.graphLayer.frame = self.bounds;
     [self clearGraph];
     
-    NSInteger nGraphs = [self.dataSource graphViewNumberOfGraphs:self];
+    NSInteger nGraphs =[self.dataSource graphViewNumberOfGraphs:self];
     MBXLineGraphVM *lineGraph;
     for (NSInteger i=0; i<nGraphs; i++) {
         lineGraph = [self graphVMForIndex:i];
-        [self.dataSource graphView:self configureGraphVM:lineGraph];
+        [self.appearanceDelegate graphView:self configureAppearanceGraphVM:lineGraph];
         [self drawGraphWithGraphModel:lineGraph];
     }
 }

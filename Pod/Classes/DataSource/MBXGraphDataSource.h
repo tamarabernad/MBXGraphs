@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MBXLineGraphView.h"
 #import "MBXLineGraphVM.h"
+@class MBXLineGraphView;
+
 
 @protocol MBXGraphDataSource <NSObject>
 - (NSInteger)graphViewNumberOfGraphs:(MBXLineGraphView *)graphView;
-- (void) graphView:(MBXLineGraphView *)graphView configureGraphVM:(MBXLineGraphVM *)graphVM;
 @end

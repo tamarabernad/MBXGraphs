@@ -35,9 +35,6 @@
     }
     return _dataUtils;
 }
-- (void)graphView:(MBXLineGraphView *)graphView configureGraphVM:(MBXLineGraphVM *)graphVM{
-    
-}
 - (NSInteger)graphViewNumberOfGraphs:(MBXLineGraphView *)graphView{
     return self.graphsValues.count;
 }
