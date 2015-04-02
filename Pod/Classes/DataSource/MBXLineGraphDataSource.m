@@ -77,7 +77,8 @@
    [self reload];
 }
 - (void)calculateRanges{
-    self.xTotalRange = [self.dataUtils rangeWithTicksForValues:[self allXValues]];
+    //TODO: only y values are right now spreaded out nicely, x values are used as they come (thinking they would be something like years: 2005, 2006, etc) should they in some cases be as the y values, nicely speraded out with nice whole values?
+    self.xTotalRange = [self.dataUtils rangeForValues:[self allXValues]];
     self.yTotalRange = [self.dataUtils rangeWithTicksForValues:[self allYValues]];
 }
 - (MBXAxisVM *)createYAxisVM{

@@ -39,7 +39,6 @@
     double valueXRange = maxAxisValue - minAxisValue;
     NSInteger maxNumberOfTicks = 11;
     NSInteger numberOfTicks = valueXRange / ticksAxis;
-    //    NSInteger newNumberOfTicks = floor(numberOfTicks / (1 + floor(numberOfTicks/(maxNumberOfTicks+0.5))));
     double ticks = ticksAxis * (1 + floor(numberOfTicks/(maxNumberOfTicks+0.5)));
     
     range.ticks = ticks;

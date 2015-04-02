@@ -11,7 +11,7 @@
 #import "MBXGraphAxis.h"
 #import "MBXLineGraphDataSource.h"
 
-@interface MBXViewController ()
+@interface MBXViewController ()<MBXGraphAppearanceDelegate>
 @property (weak, nonatomic) IBOutlet MBXLineGraphView *viewGraph;
 @property (weak, nonatomic) IBOutlet MBXGraphAxis *viewYAxis;
 @property (weak, nonatomic) IBOutlet MBXGraphAxis *viewXAxis;
@@ -21,6 +21,9 @@
 @end
 
 @implementation MBXViewController
+- (IBAction)onBtClick:(id)sender {
+    [self reload];
+}
 - (MBXLineGraphDataSource *)dataSource{
     if(!_dataSource){
         _dataSource = [MBXLineGraphDataSource new];
@@ -32,13 +35,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     NSArray *graphValues = @[
-                             @{@"x":@3.0, @"y": @2005},
-                             @{@"x":@3.5, @"y": @2006},
-                             @{@"x":@4.0, @"y": @2007},
-                             @{@"x":@1.2, @"y": @2008},
-                             @{@"x":@7.0, @"y": @2009},
-                             @{@"x":@7.0, @"y": @2010},
-                             @{@"x":@2.0, @"y": @2011}
+                             @{@"y":@3.0, @"x": @2005},
+                             @{@"y":@3.5, @"x": @2006},
+                             @{@"y":@4.0, @"x": @2007},
+                             @{@"y":@1.2, @"x": @2008},
+                             @{@"y":@7.0, @"x": @2009},
+                             @{@"y":@7.0, @"x": @2010},
+                             @{@"y":@2.0, @"x": @2011}
                              ];
     
     
@@ -47,20 +50,31 @@
     self.viewXAxis.dataSource = self.dataSource;
     self.viewXAxis.direction = kDirectionHorizontal;
     self.viewYAxis.direction = kDirectionVertical;
-    
+    self.viewGraph.appearanceDelegate = self;
     [self.dataSource setGraphValues:graphValues];
 }
 - (void)viewDidAppear:(BOOL)animated{
+    [self reload];
 
+}
+- (void)reload{
     [self.viewGraph reload];
     [self.viewYAxis reload];
     [self.viewXAxis reload];
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)graphView:(MBXLineGraphView *)graphView configureAppearanceGraphVM:(MBXLineGraphVM *)graphVM{
 
+    graphVM.color = [UIColor greenColor];
+    graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
+    graphVM.fillColor = [UIColor redColor];
+    graphVM.fillOpacity = 0.4;
+    graphVM.markerStyle = MBXMarkerStyleFilled;
+    graphVM.priority = 1000;
+
+}
 @end
