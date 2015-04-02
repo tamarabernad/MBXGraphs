@@ -66,53 +66,6 @@
     }
     [self setNeedsLayout];
 }
-- (void)setAxisProportionValues:(NSArray *)proportionValues AndTitles:(NSArray *)titles{
-    
-    NSMutableArray *pivs = [[NSMutableArray alloc] init];
-    for(NSUInteger i = 0, n= [proportionValues count]; i<n;i++){
-        [pivs addObject:[self viewPointWithProportionPoint:[proportionValues objectAtIndex:i]]];
-    }
-    self.pointsInView = [NSArray arrayWithArray:pivs];
-    
-    
-    if ([self.pointsInView count] != [[self.indicatorsContainer subviews] count]) {
-        [self setNumberIndicators:[self.pointsInView count]];
-    }
-    for(NSUInteger i = 0, n = [[self.labelsContainer subviews] count]; i<n;i++){
-        UILabel *lb = [[self.labelsContainer subviews] objectAtIndex:i];
-        NSString *val = [titles objectAtIndex:i];
-        [lb setText:val];
-        [lb sizeToFit];
-    }
-    [self setNeedsLayout];
-    
-    
-}
-- (void)setAxisValues:(NSArray *)axisValues{
-    NSInteger maxLines = 10;
-    NSUInteger steps;
-    NSMutableArray *finalAxisValues = [[NSMutableArray alloc] initWithArray:axisValues];
-    if (([axisValues count]-1) > maxLines) {
-        finalAxisValues = [[NSMutableArray alloc] init];
-        steps =  ([axisValues count]-1)/maxLines;
-        for (NSUInteger i=0; i<=steps; i++) {
-            NSUInteger index = i * maxLines;
-            [finalAxisValues addObject:[axisValues objectAtIndex:index]];
-        }
-    }
-    
-    if ([finalAxisValues count] != [[self.indicatorsContainer subviews] count]) {
-        [self setNumberIndicators:[finalAxisValues count]];
-    }
-    for(NSUInteger i = 0, n = [[self.labelsContainer subviews] count]; i<n;i++){
-        UILabel *lb = [[self.labelsContainer subviews] objectAtIndex:i];
-        NSString *val = [finalAxisValues objectAtIndex:i];
-        [lb setText:val];
-        [lb sizeToFit];
-    }
-    [self setNeedsLayout];
-}
-
 - (void)setNumberIndicators:(NSInteger)numberIndicators{
     
     NSArray *indicators = [[self.indicatorsContainer subviews] copy];

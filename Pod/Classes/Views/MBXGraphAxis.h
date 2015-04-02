@@ -38,5 +38,4 @@ typedef enum
 @property (nonatomic, assign)   id <MBXGraphDataSource> dataSource;
 
 - (void)reload;
-- (void)setAxisProportionValues:(NSArray *)proportionValues AndTitles:(NSArray *)titles;
 @end
