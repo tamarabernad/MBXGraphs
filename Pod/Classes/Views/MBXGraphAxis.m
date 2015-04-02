@@ -18,15 +18,11 @@
 @property (nonatomic, strong) UIView *axisView;
 
 @property (nonatomic, strong) NSArray *pointsInView;
-@property (nonatomic) BOOL forReport;
 @end
 
 @implementation MBXGraphAxis
-
-- (void)setIsForReport:(BOOL)forReport{
-    self.forReport = forReport;
-    [self setNeedsLayout];
-
+- (void)reload{
+    [self setAxisVM:self.direction == kDirectionHorizontal ? [self.dataSource xAxisVM] : [self.dataSource yAxisVM]];
 }
 - (void)setDirection:(MBXGRaphAxisDirection)direction{
     _direction = direction;
@@ -127,9 +123,9 @@
 }
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
+    //TODO do this in designated indicator this is only available for nib files
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.forReport = NO;
         
         self.labelsContainer = [[UIView alloc] init];
         [self addSubview:self.labelsContainer];
@@ -146,8 +142,8 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     
-    int lineSize = self.forReport ? 10 : LINE_SIZE;
-    int lineWidth = self.forReport ? 2 : 1;
+    int lineSize = LINE_SIZE;
+    int lineWidth = 1;
     
     // Axis View
     CGRect fr = self.bounds;

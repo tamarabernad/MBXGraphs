@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5023" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="MBXViewController" sceneMemberID="viewController">
@@ -15,8 +17,45 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MPj-Pk-U9M" customClass="MBXLineGraphView">
+                                <rect key="frame" x="40" y="127" width="256" height="281"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IKn-rK-d2N" customClass="MBXGraphAxis">
+                                <rect key="frame" x="0.0" y="127" width="40" height="281"/>
+                                <color key="backgroundColor" red="0.69043681570000004" green="0.95686274510000002" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="Hd3-fN-AYN"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZZ-T3-fJr" customClass="MBXGraphAxis">
+                                <rect key="frame" x="40" y="408" width="256" height="40"/>
+                                <color key="backgroundColor" red="0.0" green="0.90690579380000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="VYm-r9-7Gv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="wZZ-T3-fJr" secondAttribute="bottom" constant="120" id="6eH-kk-ZLZ"/>
+                            <constraint firstItem="MPj-Pk-U9M" firstAttribute="leading" secondItem="IKn-rK-d2N" secondAttribute="trailing" id="B6a-Bp-bfy"/>
+                            <constraint firstItem="IKn-rK-d2N" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="PMH-iD-a4v"/>
+                            <constraint firstItem="wZZ-T3-fJr" firstAttribute="top" secondItem="IKn-rK-d2N" secondAttribute="bottom" id="Qv8-eB-bHZ"/>
+                            <constraint firstItem="wZZ-T3-fJr" firstAttribute="leading" secondItem="IKn-rK-d2N" secondAttribute="trailing" id="SeV-8L-sUM"/>
+                            <constraint firstItem="wZZ-T3-fJr" firstAttribute="trailing" secondItem="MPj-Pk-U9M" secondAttribute="trailing" id="bMv-Rs-1gR"/>
+                            <constraint firstItem="IKn-rK-d2N" firstAttribute="top" secondItem="MPj-Pk-U9M" secondAttribute="top" id="leu-mR-quE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wZZ-T3-fJr" secondAttribute="trailing" constant="8" id="lxt-cZ-mve"/>
+                            <constraint firstItem="wZZ-T3-fJr" firstAttribute="top" secondItem="MPj-Pk-U9M" secondAttribute="bottom" id="mQX-TG-MKJ"/>
+                            <constraint firstItem="IKn-rK-d2N" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="107" id="sck-cH-grY"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="viewGraph" destination="MPj-Pk-U9M" id="PbW-gG-LCN"/>
+                        <outlet property="viewXAxis" destination="wZZ-T3-fJr" id="L4M-SC-UtN"/>
+                        <outlet property="viewYAxis" destination="IKn-rK-d2N" id="GFJ-A1-QZ8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

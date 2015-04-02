@@ -11,9 +11,10 @@
 #import "MBXGraphVM.h"
 #import "MBXGraphDataSource.h"
 #import "MBXGraphAppearanceDelegate.h"
+@protocol MBXGraphDataSource;
 
 @interface MBXLineGraphView : UIView
 @property (nonatomic, assign)   id <MBXGraphDataSource> dataSource;
 @property (nonatomic, assign)   id <MBXGraphAppearanceDelegate> appearanceDelegate;
-
+- (void)reload;
 @end

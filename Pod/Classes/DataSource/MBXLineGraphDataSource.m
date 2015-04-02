@@ -13,8 +13,8 @@
 #import "MBXChartVM.h"
 
 @interface MBXLineGraphDataSource()
-@property (nonatomic, weak) NSArray *xValues;
-@property (nonatomic, weak) NSArray *yValues;
+//@property (nonatomic, weak) NSArray *xValues;
+//@property (nonatomic, weak) NSArray *yValues;
 @property (nonatomic, strong) NSArray *lineGraphVMs;
 @property (nonatomic, strong) MBXGraphDataUtils *dataUtils;
 @property (nonatomic, strong) MBXChartVM *chartVM;
@@ -38,12 +38,21 @@
 - (NSInteger)graphViewNumberOfGraphs:(MBXLineGraphView *)graphView{
     return self.graphsValues.count;
 }
+- (NSArray *)graphVMs{
+    return self.chartVM.graphs;
+}
+- (MBXAxisVM *)yAxisVM{
+    return self.chartVM.yAxisVM;
+}
+- (MBXAxisVM *)xAxisVM{
+    return self.chartVM.xAxisVM;
+}
 - (void)reload{
     NSInteger index = 0;
     NSMutableArray *graphs = [NSMutableArray new];
     for (NSArray *values in self.graphsValues) {
-        NSArray *xValues = [values valueForKeyPath:@"self.CGPointValue.x"];
-        NSArray *yValues = [values valueForKeyPath:@"self.CGPointValue.y"];
+        NSArray *xValues = [self valuesForGraphValues:values inKey:@"x"];
+        NSArray *yValues = [self valuesForGraphValues:values inKey:@"y"];
         NSArray *yProportionValues = [self.dataUtils calculateProportionValues:yValues WithRange:self.yTotalRange];
         NSArray *xProportionValues = [self.dataUtils calculateProportionValues:xValues WithRange:self.xTotalRange];
         MBXLineGraphVM *lineGraphVM =[MBXLineGraphVM new];
@@ -54,48 +63,66 @@
     }
     self.chartVM.graphs = [NSArray arrayWithArray:graphs];
     
-    self.chartVM.yAxisVM = [self yAxisVM];
-    self.chartVM.xAxisVM = [self xAxisVM];
+    self.chartVM.yAxisVM = [self createYAxisVM];
+    self.chartVM.xAxisVM = [self createXAxisVM];
 }
 - (void)setMultipleGraphValues:(NSArray *)values{
     self.graphsValues = values;
-    NSArray *completeXValues = [values valueForKeyPath:@"@unionOfArrays.self"];
-    completeXValues = [completeXValues valueForKeyPath:@"self.CGPointValue.x"];
-    self.xTotalRange = [self.dataUtils rangeWithTicksForValues:completeXValues];
-    
-    NSArray *completeYValues = [values valueForKeyPath:@"@unionOfArrays.self"];
-    completeYValues = [completeYValues valueForKeyPath:@"self.CGPointValue.y"];
-    self.yTotalRange = [self.dataUtils rangeWithTicksForValues:completeYValues];
-}
-
-- (void)setXValues:(NSArray *)values{
-    _xValues = values;
+    [self calculateRanges];
     [self reload];
 }
-- (void)setYValues:(NSArray *)values{
-    _yValues = values;
-    [self reload];
+- (void)setGraphValues:(NSArray *)values{
+    self.graphsValues = [NSArray arrayWithObject:values];
+   [self calculateRanges];
+   [self reload];
 }
-
-- (MBXAxisVM *)yAxisVM{
-    MBXValueRange yRange = [self.dataUtils rangeWithTicksForValues:self.yValues];
+- (void)calculateRanges{
+    self.xTotalRange = [self.dataUtils rangeWithTicksForValues:[self allXValues]];
+    self.yTotalRange = [self.dataUtils rangeWithTicksForValues:[self allYValues]];
+}
+- (MBXAxisVM *)createYAxisVM{
+    MBXValueRange yRange = [self.dataUtils rangeWithTicksForValues:[self allYValues]];
 
     NSArray *yAxisIntervals =[self.dataUtils calculateIntervalsInRange:yRange];
     MBXAxisVM *yAxisVM = [MBXAxisVM new];
     yAxisVM.proportionValues = [self.dataUtils calculateProportionValues:yAxisIntervals WithRange:yRange];
     //TODO: appearance need to happen in a delegate
     yAxisVM.labelValues = [self.dataUtils formatIntervalStringsWithIntervals:yAxisIntervals];
-//    self.graphVisualModel.yAxisVM = yAxisVM;
     return yAxisVM;
 }
-- (MBXAxisVM *)xAxisVM{
+- (MBXAxisVM *)createXAxisVM{
     MBXAxisVM *xAxisVM = [MBXAxisVM new];
-    MBXValueRange xRange = [self.dataUtils rangeWithTicksForValues:self.xValues];
+    MBXValueRange xRange = [self.dataUtils rangeWithTicksForValues:[self allXValues]];
     NSArray *xAxisIntervals =[self.dataUtils calculateIntervalsInRange:xRange];
     xAxisVM.proportionValues = [self.dataUtils calculateProportionValues:xAxisIntervals WithRange:xRange];
     //TODO: appearance need to happen in a delegate
     xAxisVM.labelValues = [self.dataUtils formatIntervalStringsWithIntervals:xAxisIntervals];
     return xAxisVM;
-//    self.graphVisualModel.xAxisVM = xAxisVM;
+}
+- (NSArray *)allXValues
+{
+    return [self allValuesForKey:@"x"];
+}
+- (NSArray *)allYValues{
+    return [self allValuesForKey:@"y"];
+}
+- (NSArray *)allValuesForKey:(NSString *)key{
+    //TODO convert to KVO, was getting null values...
+    NSMutableArray *valuesForKey = [NSMutableArray new];
+    for (NSArray *graphValues in self.graphsValues) {
+        [valuesForKey addObjectsFromArray:[self valuesForGraphValues:graphValues inKey:key]];
+    }
+    return [NSArray arrayWithArray:valuesForKey];
+
+//    NSArray *completeXValues = [self.graphsValues valueForKeyPath:@"@unionOfArrays.self"];
+//    completeXValues = [completeXValues valueForKeyPath:key];
+//    return completeXValues;
+}
+- (NSArray *)valuesForGraphValues:(NSArray *)graphValues inKey:(NSString *)key{
+    NSMutableArray *valuesForKey = [NSMutableArray new];
+    for (NSDictionary *value in graphValues){
+        [valuesForKey addObject:[value objectForKey:key]];
+    }
+    return [NSArray arrayWithArray:valuesForKey];
 }
 @end

@@ -11,7 +11,6 @@
 
 
 @interface MBXLineGraphView()
-@property (nonatomic, strong) NSMutableArray *graphVMs;
 @property (nonatomic, strong) CAShapeLayer *graphLayer;
 
 @end
@@ -21,10 +20,13 @@
 + (Class)layerClass{
     return [CAShapeLayer class];
 }
+
+
 ////////////////////////////////
 #pragma mark - Life cycle
 ////////////////////////////////
 - (id)initWithCoder:(NSCoder *)aDecoder{
+    //TODO change this to the designed initializer, this would only work for nib created graphViews
     if(self = [super initWithCoder:aDecoder]){
 
         self.graphLayer = [CAShapeLayer layer];
@@ -35,30 +37,18 @@
     return self;
 }
 ////////////////////////////////
-#pragma mark - Lazy getters
-////////////////////////////////
-- (NSMutableArray *)graphVMs{
-    if(!_graphVMs){
-        _graphVMs = [NSMutableArray new];
-    }
-    return _graphVMs;
-}
-////////////////////////////////
 #pragma mark - Private methods
 ////////////////////////////////
 ////////////////////////////////
 #pragma mark Drawing
 ////////////////////////////////
-- (void)drawGraph{
+- (void)reload{
     self.graphLayer.frame = self.bounds;
     [self clearGraph];
     
-    NSInteger nGraphs =[self.dataSource graphViewNumberOfGraphs:self];
-    MBXLineGraphVM *lineGraph;
-    for (NSInteger i=0; i<nGraphs; i++) {
-        lineGraph = [self graphVMForIndex:i];
-        [self.appearanceDelegate graphView:self configureAppearanceGraphVM:lineGraph];
-        [self drawGraphWithGraphModel:lineGraph];
+    for (MBXLineGraphVM *graphVM in [self.dataSource graphVMs]) {
+        [self.appearanceDelegate graphView:self configureAppearanceGraphVM:graphVM];
+        [self drawGraphWithGraphModel:graphVM];
     }
 }
 - (void)clearGraph{
@@ -209,14 +199,5 @@
         [path addLineToPoint:point];
     }
     return path;
-}
-////////////////////////////////
-#pragma mark helpers
-////////////////////////////////
-- (MBXLineGraphVM *)graphVMForIndex:(NSInteger)index{
-    if (index >= self.graphVMs.count) {
-        [self.graphVMs insertObject:[MBXGraphVM new] atIndex:index];
-    }
-    return [self.graphVMs objectAtIndex:index];
 }
 @end

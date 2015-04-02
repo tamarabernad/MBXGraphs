@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "MBXGraphDataSource.h"
 @interface MBXLineGraphDataSource : NSObject<MBXGraphDataSource>
-
+- (void)setMultipleGraphValues:(NSArray *)values;
+- (void)setGraphValues:(NSArray *)values;
 @end

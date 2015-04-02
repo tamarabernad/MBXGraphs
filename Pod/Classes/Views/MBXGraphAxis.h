@@ -8,15 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "MBXAxisVM.h"
+#import "MBXGraphDataSource.h"
 typedef enum
 {
     kDirectionVertical,
     kDirectionHorizontal
     
 }MBXGRaphAxisDirection;
+
 @interface MBXGraphAxis : UIView
+
 @property (nonatomic) MBXGRaphAxisDirection direction;
-- (void)setIsForReport:(BOOL)forReport;
+@property (nonatomic, assign)   id <MBXGraphDataSource> dataSource;
+
+- (void)reload;
 - (void)setAxisProportionValues:(NSArray *)proportionValues AndTitles:(NSArray *)titles;
-- (void)setAxisVM:(MBXAxisVM *)axisVM;
 @end
