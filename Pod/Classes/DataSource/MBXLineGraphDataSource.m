@@ -29,8 +29,6 @@
 #import "MBXChartVM.h"
 
 @interface MBXLineGraphDataSource()
-//@property (nonatomic, weak) NSArray *xValues;
-//@property (nonatomic, weak) NSArray *yValues;
 @property (nonatomic, strong) NSArray *lineGraphVMs;
 @property (nonatomic, strong) MBXGraphDataUtils *dataUtils;
 @property (nonatomic, strong) MBXChartVM *chartVM;

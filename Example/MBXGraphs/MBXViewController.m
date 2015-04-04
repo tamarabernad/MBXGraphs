@@ -60,6 +60,9 @@
     [self reload];
 
 }
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    [self reload];
+}
 
 - (void)reload{
     [self.viewGraph reload];

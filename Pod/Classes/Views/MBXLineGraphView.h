@@ -24,7 +24,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MBXLineGraphVM.h"
-#import "MBXGraphVM.h"
 #import "MBXGraphDataSource.h"
 #import "MBXGraphAppearanceDelegate.h"
 @protocol MBXGraphDataSource;
