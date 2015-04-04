@@ -35,13 +35,21 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     NSArray *graphValues = @[
-                             @{@"y":@3.0, @"x": @2005},
+                             @[@{@"y":@3.0, @"x": @2005},
                              @{@"y":@3.5, @"x": @2006},
                              @{@"y":@4.0, @"x": @2007},
                              @{@"y":@1.2, @"x": @2008},
                              @{@"y":@7.0, @"x": @2009},
                              @{@"y":@7.0, @"x": @2010},
-                             @{@"y":@2.0, @"x": @2011}
+                             @{@"y":@2.0, @"x": @2011}],
+                             
+                             @[@{@"y":@0.5, @"x": @2008},
+                               @{@"y":@1.5, @"x": @2009},
+                               @{@"y":@9.0, @"x": @2010},
+                               @{@"y":@3.2, @"x": @2011},
+                               @{@"y":@5.0, @"x": @2012},
+                               @{@"y":@8.0, @"x": @2013},
+                               @{@"y":@2.0, @"x": @2014}]
                              ];
     
     
@@ -54,7 +62,7 @@
     
     self.viewXAxis.delegate = self;
     self.viewYAxis.delegate = self;
-    [self.dataSource setGraphValues:graphValues];
+    [self.dataSource setMultipleGraphValues:graphValues];
 }
 - (void)viewDidAppear:(BOOL)animated{
     [self reload];
