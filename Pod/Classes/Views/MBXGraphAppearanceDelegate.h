@@ -26,5 +26,5 @@
 @class MBXLineGraphView;
 
 @protocol MBXGraphAppearanceDelegate <NSObject>
-- (void) graphView:(MBXLineGraphView *)graphView configureAppearanceGraphVM:(MBXLineGraphVM *)graphVM;
+- (void) MBXLineGraphView:(MBXLineGraphView *)graphView configureAppearanceGraphVM:(MBXLineGraphVM *)graphVM;
 @end

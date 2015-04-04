@@ -11,7 +11,7 @@
 #import "MBXGraphAxis.h"
 #import "MBXLineGraphDataSource.h"
 
-@interface MBXViewController ()<MBXGraphAppearanceDelegate>
+@interface MBXViewController ()<MBXGraphAppearanceDelegate, MBXGraphAxisDelegate>
 @property (weak, nonatomic) IBOutlet MBXLineGraphView *viewGraph;
 @property (weak, nonatomic) IBOutlet MBXGraphAxis *viewYAxis;
 @property (weak, nonatomic) IBOutlet MBXGraphAxis *viewXAxis;
@@ -51,12 +51,16 @@
     self.viewXAxis.direction = kDirectionHorizontal;
     self.viewYAxis.direction = kDirectionVertical;
     self.viewGraph.appearanceDelegate = self;
+    
+    self.viewXAxis.delegate = self;
+    self.viewYAxis.delegate = self;
     [self.dataSource setGraphValues:graphValues];
 }
 - (void)viewDidAppear:(BOOL)animated{
     [self reload];
 
 }
+
 - (void)reload{
     [self.viewGraph reload];
     [self.viewYAxis reload];
@@ -67,7 +71,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)graphView:(MBXLineGraphView *)graphView configureAppearanceGraphVM:(MBXLineGraphVM *)graphVM{
+- (void)MBXLineGraphView:(MBXLineGraphView *)graphView configureAppearanceGraphVM:(MBXLineGraphVM *)graphVM{
 
     graphVM.color = [UIColor greenColor];
     graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
@@ -77,4 +81,21 @@
     graphVM.priority = 1000;
 
 }
+
+- (UIView *)MBXGraphAxis:(MBXGraphAxis *)graphAxis ViewForValue:(NSString *)value{
+    UILabel *label = [UILabel new];
+    label.text = value;
+    [label sizeToFit];
+    return label;
+}
+- (NSInteger)MBXGraphAxisTicksHeight:(MBXGraphAxis *)graphAxis{
+    return 1;
+}
+- (NSInteger)MBXGraphAxisTicksWidth:(MBXGraphAxis *)graphAxis{
+    return 4;
+}
+- (UIColor *)MBXGraphAxisColor:(MBXGraphAxis *)graphAxis{
+    return [UIColor purpleColor];
+}
 @end
+

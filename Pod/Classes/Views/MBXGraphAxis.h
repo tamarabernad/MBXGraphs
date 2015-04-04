@@ -32,10 +32,24 @@ typedef enum
     
 }MBXGRaphAxisDirection;
 
+@protocol MBXGraphAxisDelegate;
+
 @interface MBXGraphAxis : UIView
 
 @property (nonatomic) MBXGRaphAxisDirection direction;
-@property (nonatomic, assign)   id <MBXGraphDataSource> dataSource;
+@property (nonatomic, weak)   id <MBXGraphDataSource> dataSource;
+@property (nonatomic, weak)   id <MBXGraphAxisDelegate> delegate;
 
 - (void)reload;
+@end
+
+@protocol MBXGraphAxisDelegate <NSObject>
+
+@required
+- (UIView *) MBXGraphAxis:(MBXGraphAxis *)graphAxis ViewForValue:(NSString *)value;
+@optional
+- (NSInteger) MBXGraphAxisTicksWidth:(MBXGraphAxis *)graphAxis;
+- (NSInteger) MBXGraphAxisTicksHeight:(MBXGraphAxis *)graphAxis;
+- (UIColor *) MBXGraphAxisColor:(MBXGraphAxis *)graphAxis;
+
 @end

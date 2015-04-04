@@ -64,7 +64,7 @@
     
     for (MBXLineGraphVM *graphVM in [self.dataSource graphVMs]) {
         [self generatePointsInViewForGraphModel:graphVM];
-        [self.appearanceDelegate graphView:self configureAppearanceGraphVM:graphVM];
+        [self.appearanceDelegate MBXLineGraphView:self configureAppearanceGraphVM:graphVM];
         [self drawGraphWithGraphModel:graphVM];
     }
 }
