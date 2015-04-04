@@ -77,8 +77,8 @@
     }
     self.chartVM.graphs = [NSArray arrayWithArray:graphs];
     
-    self.chartVM.yAxisVM = [self createYAxisVM];
-    self.chartVM.xAxisVM = [self createXAxisVM];
+    self.chartVM.yAxisVM = [self createAxisVMWithValues:[self allYValues]];
+    self.chartVM.xAxisVM = [self createAxisVMWithValues:[self allXValues]];
 }
 - (void)setMultipleGraphValues:(NSArray *)values{
     self.graphsValues = values;
@@ -95,24 +95,13 @@
     self.xTotalRange = [self.dataUtils rangeForValues:[self allXValues]];
     self.yTotalRange = [self.dataUtils rangeWithTicksForValues:[self allYValues]];
 }
-- (MBXAxisVM *)createYAxisVM{
-    MBXValueRange yRange = [self.dataUtils rangeWithTicksForValues:[self allYValues]];
-
-    NSArray *yAxisIntervals =[self.dataUtils calculateIntervalsInRange:yRange];
-    MBXAxisVM *yAxisVM = [MBXAxisVM new];
-    yAxisVM.proportionValues = [self.dataUtils calculateProportionValues:yAxisIntervals WithRange:yRange];
-    //TODO: appearance need to happen in a delegate
-    yAxisVM.labelValues = [self.dataUtils formatIntervalStringsWithIntervals:yAxisIntervals];
-    return yAxisVM;
-}
-- (MBXAxisVM *)createXAxisVM{
-    MBXAxisVM *xAxisVM = [MBXAxisVM new];
-    MBXValueRange xRange = [self.dataUtils rangeWithTicksForValues:[self allXValues]];
+- (MBXAxisVM *)createAxisVMWithValues:(NSArray *)values{
+    MBXAxisVM *axisVM = [MBXAxisVM new];
+    MBXValueRange xRange = [self.dataUtils rangeWithTicksForValues:values];
     NSArray *xAxisIntervals =[self.dataUtils calculateIntervalsInRange:xRange];
-    xAxisVM.proportionValues = [self.dataUtils calculateProportionValues:xAxisIntervals WithRange:xRange];
-    //TODO: appearance need to happen in a delegate
-    xAxisVM.labelValues = [self.dataUtils formatIntervalStringsWithIntervals:xAxisIntervals];
-    return xAxisVM;
+    axisVM.proportionValues = [self.dataUtils calculateProportionValues:xAxisIntervals WithRange:xRange];
+    axisVM.valueStrings = [self.dataUtils formatIntervalStringsWithIntervals:xAxisIntervals];
+    return axisVM;
 }
 - (NSArray *)allXValues
 {
@@ -128,10 +117,6 @@
         [valuesForKey addObjectsFromArray:[self valuesForGraphValues:graphValues inKey:key]];
     }
     return [NSArray arrayWithArray:valuesForKey];
-
-//    NSArray *completeXValues = [self.graphsValues valueForKeyPath:@"@unionOfArrays.self"];
-//    completeXValues = [completeXValues valueForKeyPath:key];
-//    return completeXValues;
 }
 - (NSArray *)valuesForGraphValues:(NSArray *)graphValues inKey:(NSString *)key{
     NSMutableArray *valuesForKey = [NSMutableArray new];

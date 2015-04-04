@@ -42,7 +42,7 @@
 }
 - (void)setAxisVM:(MBXAxisVM *)axisVM{
     [self calculatePointsInViewWithProportionValues:axisVM.proportionValues];
-    [self createViewsWithValues:axisVM.labelValues];
+    [self createViewsWithValues:axisVM.valueStrings];
     [self setNeedsLayout];
 }
 - (id)initWithCoder:(NSCoder *)aDecoder
