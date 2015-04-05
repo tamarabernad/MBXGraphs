@@ -47,7 +47,7 @@
     
     MBXValueRange range = [self rangeForValues:values];
     
-    NSArray *niceAxisValues =[self calculateRangeAndIntervalSizeWithMinValue:range.min AndMaxValue:range.max];// [self niceAxis:range.min :range.max];
+    NSArray *niceAxisValues =[self calculateRangeAndIntervalSizeWithMinValue:range.min AndMaxValue:range.max];
     double minAxisValue = [[niceAxisValues objectAtIndex:0]doubleValue];
     double maxAxisValue = [[niceAxisValues objectAtIndex:1]doubleValue];
     double ticksAxis = [[niceAxisValues objectAtIndex:2]doubleValue];
@@ -146,7 +146,6 @@
 }
 
 - (NSArray *)createProportionPointsWithXProportionValues:(NSArray *)xProportionValues AndYProportionValues:(NSArray *)yProportionValues{
-    // Create proportion XY values for timeseries
     NSMutableArray *timeseriesProp = [[NSMutableArray alloc] init];
     int index = 0;
     NSValue *v;

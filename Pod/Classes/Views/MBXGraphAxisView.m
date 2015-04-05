@@ -33,6 +33,10 @@
 @end
 
 @implementation MBXGraphAxisView
+
+////////////////////////////////////
+#pragma mark - Public
+////////////////////////////////////
 - (void)reload{
     [self setAxisVM:self.direction == kDirectionHorizontal ? [self.dataSource xAxisVM] : [self.dataSource yAxisVM]];
 }
@@ -45,6 +49,10 @@
     [self createViewsWithValues:axisVM.values];
     [self setNeedsLayout];
 }
+
+////////////////////////////////////
+#pragma mark - Life cycle
+////////////////////////////////////
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     //TODO do this in designated indicator this is only available for nib files
@@ -109,6 +117,10 @@
     }
     
 }
+
+////////////////////////////////////
+#pragma mark - Helpers
+////////////////////////////////////
 - (NSValue *)viewPointWithProportionPoint:(NSNumber *)proportionPoint{
     
     CGFloat height = self.frame.size.height;

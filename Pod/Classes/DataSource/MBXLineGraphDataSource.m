@@ -37,18 +37,10 @@
 @property (nonatomic, strong) NSArray *graphsValues;
 @end
 @implementation MBXLineGraphDataSource
-- (MBXChartVM *)chartVM{
-    if(!_chartVM){
-        _chartVM = [MBXChartVM new];
-    }
-    return _chartVM;
-}
-- (MBXGraphDataUtils *)dataUtils{
-    if(!_dataUtils){
-        _dataUtils = [MBXGraphDataUtils new];
-    }
-    return _dataUtils;
-}
+
+////////////////////////////////////
+#pragma mark - Public
+////////////////////////////////////
 - (NSArray *)graphVMs{
     return self.chartVM.graphs;
 }
@@ -87,6 +79,26 @@
    [self calculateRanges];
    [self reload];
 }
+
+////////////////////////////////////
+#pragma mark - Lazy getters
+////////////////////////////////////
+- (MBXChartVM *)chartVM{
+    if(!_chartVM){
+        _chartVM = [MBXChartVM new];
+    }
+    return _chartVM;
+}
+- (MBXGraphDataUtils *)dataUtils{
+    if(!_dataUtils){
+        _dataUtils = [MBXGraphDataUtils new];
+    }
+    return _dataUtils;
+}
+
+////////////////////////////////////
+#pragma mark - Helpers
+////////////////////////////////////
 - (void)calculateRanges{
     //TODO: only y values are right now spreaded out nicely, x values are used as they come (thinking they would be something like years: 2005, 2006, etc) should they in some cases be as the y values, nicely speraded out with nice whole values?
     self.xTotalRange = [self.dataUtils rangeForValues:[self allXValues]];

@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MBXGraphs: ee9fc619f0ff5d5a9d4508fd25fcb22e3f934033
+  MBXGraphs: 0dd2d8d73dc6e5196e7edea739d1ed89e737c513
 
 COCOAPODS: 0.35.0
