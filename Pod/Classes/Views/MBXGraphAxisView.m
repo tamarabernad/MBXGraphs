@@ -38,10 +38,6 @@
 #pragma mark - Public
 ////////////////////////////////////
 
-
-- (void)setDataSource:(id<MBXGraphDataSource>)dataSource{
-    _dataSource = dataSource;
-}
 - (void)reload{
     [self setAxisVM:self.direction == kDirectionHorizontal ? [self.dataSource xAxisVM] : [self.dataSource yAxisVM]];
 }

@@ -63,6 +63,7 @@
         lineGraphVM.proportionPoints = [self.dataUtils createProportionPointsWithXProportionValues:xProportionValues AndYProportionValues:yProportionValues];
         
         [graphs addObject:lineGraphVM];
+        index++;
     }
     self.chartVM.graphs = [NSArray arrayWithArray:graphs];
     

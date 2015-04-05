@@ -76,6 +76,8 @@
     
     [self.graphLayer.sublayers makeObjectsPerformSelector: @selector(removeFromSuperlayer)];
 }
+
+//TODO make this method much nicer
 - (void)drawGraphWithGraphModel:(MBXGraphVM *)graphVM{
     CAShapeLayer *layer;
     CAShapeLayer *fillLayer;
@@ -147,6 +149,8 @@
         
         [graphLayer addSublayer:marker];
         NSInteger markerDim;
+        
+        //TODO ask for the marker as a delegate method
         if((graphVM.markerStyle & MBXMarkerStyleBig) == MBXMarkerStyleBig){
             markerDim = 32;
         }else if((graphVM.markerStyle & MBXMarkerStyleMedium) == MBXMarkerStyleMedium){

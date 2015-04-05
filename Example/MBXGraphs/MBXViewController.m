@@ -31,7 +31,6 @@
     if(!_viewXAxisCode){
         _viewXAxisCode = [MBXGraphAxisView new];
         [_viewXAxisCode setDirection:kDirectionHorizontal];
-        [_viewXAxisCode setBackgroundColor:[UIColor redColor]];
     }
     return _viewXAxisCode;
 }
@@ -39,20 +38,14 @@
     if(!_viewYAxisCode){
         _viewYAxisCode = [MBXGraphAxisView new];
         [_viewYAxisCode setDirection:kDirectionVertical];
-        [_viewYAxisCode setBackgroundColor:[UIColor greenColor]];
     }
     return _viewYAxisCode;
 }
 - (MBXGraphView *)viewGraphCode{
     if(!_viewGraphCode){
         _viewGraphCode = [MBXGraphView new];
-        [_viewGraphCode setBackgroundColor:[UIColor blueColor]];
     }
     return _viewGraphCode;
-}
-
-- (IBAction)onBtClick:(id)sender {
-    [self reload];
 }
 - (MBXLineGraphDataSource *)dataSource{
     if(!_dataSource){
@@ -65,16 +58,16 @@
     [super viewDidLoad];
     
     // nib created graph
-//    self.viewGraph.dataSource = self.dataSource;
-//    self.viewYAxis.dataSource = self.dataSource;
-//    self.viewXAxis.dataSource = self.dataSource;
-//    
-//    self.viewXAxis.direction = kDirectionHorizontal;
-//    self.viewYAxis.direction = kDirectionVertical;
-//    self.viewGraph.appearanceDelegate = self;
-//    
-//    self.viewXAxis.delegate = self;
-//    self.viewYAxis.delegate = self;
+    self.viewGraph.dataSource = self.dataSource;
+    self.viewYAxis.dataSource = self.dataSource;
+    self.viewXAxis.dataSource = self.dataSource;
+    
+    self.viewXAxis.direction = kDirectionHorizontal;
+    self.viewYAxis.direction = kDirectionVertical;
+
+    self.viewGraph.delegate = self;
+    self.viewXAxis.delegate = self;
+    self.viewYAxis.delegate = self;
 
     // code created graph
     [self.view addSubview:self.viewGraphCode];
@@ -126,20 +119,42 @@
     [self.viewGraph reload];
     [self.viewYAxis reload];
     [self.viewXAxis reload];
+    
+    [self.viewGraphCode reload];
+    [self.viewYAxisCode reload];
+    [self.viewXAxisCode reload];
 }
 - (void)MBXLineGraphView:(MBXGraphView *)graphView configureAppearanceGraphVM:(MBXGraphVM *)graphVM{
 
-    graphVM.color = [UIColor greenColor];
-    graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
-    graphVM.fillColor = [UIColor redColor];
-    graphVM.fillOpacity = 0.4;
-    graphVM.markerStyle = MBXMarkerStyleFilled;
-    graphVM.priority = 1000;
+    if(graphView == self.viewGraph){
+        graphVM.color = [UIColor greenColor];
+        graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
+        graphVM.fillColor = [UIColor redColor];
+        graphVM.fillOpacity = 0.4;
+        graphVM.markerStyle = MBXMarkerStyleFilled;
+        graphVM.priority = 1000;
+    }else{
+        graphVM.color = [UIColor blueColor];
+        graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
+        if([graphVM.uid isEqualToString:@"0"]){
+            graphVM.lineStyle = MBXLineStyleDotDash;
+            graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
+            graphVM.markerStyle = MBXMarkerStyleHidden;
+        }else{
+            graphVM.lineStyle = MBXLineStyleDashed;
+            graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine;
+            graphVM.markerStyle = MBXMarkerStyleFilled;
+        }
+        graphVM.fillColor = [UIColor grayColor];
+        graphVM.fillOpacity = 0.4;
+        graphVM.priority = 1000;
+    }
 
 }
 
 - (UIView *)MBXGraphAxis:(MBXGraphAxisView *)graphAxis ViewForValue:(NSNumber *)value{
     UILabel *label = [UILabel new];
+    label.font =[UIFont systemFontOfSize:9];
     label.text = [value stringValue];
     [label sizeToFit];
     return label;
