@@ -22,16 +22,16 @@
  
  */
 
-#import "MBXLineGraphView.h"
-#import "MBXLineGraphVM.h"
+#import "MBXGraphView.h"
+#import "MBXGraphVM.h"
 
 
-@interface MBXLineGraphView()
+@interface MBXGraphView()
 @property (nonatomic, strong) CAShapeLayer *graphLayer;
 
 @end
 
-@implementation MBXLineGraphView
+@implementation MBXGraphView
 
 + (Class)layerClass{
     return [CAShapeLayer class];
@@ -62,7 +62,7 @@
     self.graphLayer.frame = self.bounds;
     [self clearGraph];
     
-    for (MBXLineGraphVM *graphVM in [self.dataSource graphVMs]) {
+    for (MBXGraphVM *graphVM in [self.dataSource graphVMs]) {
         [self generatePointsInViewForGraphModel:graphVM];
         [self.appearanceDelegate MBXLineGraphView:self configureAppearanceGraphVM:graphVM];
         [self drawGraphWithGraphModel:graphVM];
@@ -73,7 +73,7 @@
     
     [self.graphLayer.sublayers makeObjectsPerformSelector: @selector(removeFromSuperlayer)];
 }
-- (void)drawGraphWithGraphModel:(MBXLineGraphVM *)graphVM{
+- (void)drawGraphWithGraphModel:(MBXGraphVM *)graphVM{
     CAShapeLayer *layer;
     CAShapeLayer *fillLayer;
     CALayer *marker;
@@ -169,11 +169,11 @@
 #pragma mark Points Conversion
 ////////////////////////////////
 - (void)generatePointsInViewForGraphModels:(NSArray *)graphModels{
-    for (MBXLineGraphVM *graphVM in graphModels) {
+    for (MBXGraphVM *graphVM in graphModels) {
         [self generatePointsInViewForGraphModel:graphVM];
     }
 }
-- (void)generatePointsInViewForGraphModel:(MBXLineGraphVM *)graphVM{
+- (void)generatePointsInViewForGraphModel:(MBXGraphVM *)graphVM{
     NSMutableArray *pivs = [[NSMutableArray alloc] init];
     for(NSInteger i = 0, n = [graphVM.proportionPoints count]; i<n;i++){
         [pivs addObject:[self viewPointWithProportionPoint:[graphVM.proportionPoints objectAtIndex:i]]];

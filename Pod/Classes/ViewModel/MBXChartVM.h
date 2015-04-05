@@ -25,12 +25,12 @@
 #import <Foundation/Foundation.h>
 
 #import "MBXAxisVM.h"
-#import "MBXLineGraphVM.h"
+#import "MBXGraphVM.h"
 
 @interface MBXChartVM : NSObject
 @property (nonatomic, strong) MBXAxisVM *yAxisVM;
 @property (nonatomic, strong) MBXAxisVM *xAxisVM;
 @property (nonatomic, strong) NSArray *graphs;
 
-- (MBXLineGraphVM *)getGraphByUid:(NSString *)uid;
+- (MBXGraphVM *)getGraphByUid:(NSString *)uid;
 @end

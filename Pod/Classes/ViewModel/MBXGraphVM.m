@@ -22,9 +22,9 @@
  
  */
 
-#import "MBXLineGraphVM.h"
+#import "MBXGraphVM.h"
 
-@implementation MBXLineGraphVM
+@implementation MBXGraphVM
 
 - (CGFloat)opacity{
     if(!_opacity){

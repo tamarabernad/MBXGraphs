@@ -49,9 +49,6 @@
     }
     return _dataUtils;
 }
-- (NSInteger)graphViewNumberOfGraphs:(MBXLineGraphView *)graphView{
-    return self.graphsValues.count;
-}
 - (NSArray *)graphVMs{
     return self.chartVM.graphs;
 }
@@ -69,7 +66,7 @@
         NSArray *yValues = [self valuesForGraphValues:values inKey:@"y"];
         NSArray *yProportionValues = [self.dataUtils calculateProportionValues:yValues WithRange:self.yTotalRange];
         NSArray *xProportionValues = [self.dataUtils calculateProportionValues:xValues WithRange:self.xTotalRange];
-        MBXLineGraphVM *lineGraphVM =[MBXLineGraphVM new];
+        MBXGraphVM *lineGraphVM =[MBXGraphVM new];
         lineGraphVM.uid = [NSString stringWithFormat:@"%lu",index];
         lineGraphVM.proportionPoints = [self.dataUtils createProportionPointsWithXProportionValues:xProportionValues AndYProportionValues:yProportionValues];
         

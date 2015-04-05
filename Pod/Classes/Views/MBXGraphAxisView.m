@@ -22,9 +22,9 @@
  
  */
 
-#import "MBXGraphAxis.h"
+#import "MBXGraphAxisView.h"
 
-@interface MBXGraphAxis()
+@interface MBXGraphAxisView()
 @property (nonatomic, strong) UIView *ticksContainer;
 @property (nonatomic, strong) UIView *valuesContainer;
 @property (nonatomic, strong) UIView *axisLineView;
@@ -32,7 +32,7 @@
 @property (nonatomic, strong) NSArray *pointsInView;
 @end
 
-@implementation MBXGraphAxis
+@implementation MBXGraphAxisView
 - (void)reload{
     [self setAxisVM:self.direction == kDirectionHorizontal ? [self.dataSource xAxisVM] : [self.dataSource yAxisVM]];
 }

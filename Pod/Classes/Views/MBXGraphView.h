@@ -23,33 +23,17 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "MBXAxisVM.h"
+#import "MBXGraphVM.h"
 #import "MBXGraphDataSource.h"
-typedef enum
-{
-    kDirectionVertical,
-    kDirectionHorizontal
-    
-}MBXGRaphAxisDirection;
 
-@protocol MBXGraphAxisDelegate;
+@protocol MBXGraphDataSource, MBXGraphDelegate;
 
-@interface MBXGraphAxis : UIView
-
-@property (nonatomic) MBXGRaphAxisDirection direction;
-@property (nonatomic, weak)   id <MBXGraphDataSource> dataSource;
-@property (nonatomic, weak)   id <MBXGraphAxisDelegate> delegate;
-
+@interface MBXGraphView : UIView
+@property (nonatomic, assign)   id <MBXGraphDataSource> dataSource;
+@property (nonatomic, assign)   id <MBXGraphDelegate> appearanceDelegate;
 - (void)reload;
 @end
 
-@protocol MBXGraphAxisDelegate <NSObject>
-
-@required
-- (UIView *) MBXGraphAxis:(MBXGraphAxis *)graphAxis ViewForValue:(NSNumber *)value;
-@optional
-- (NSInteger) MBXGraphAxisTicksWidth:(MBXGraphAxis *)graphAxis;
-- (NSInteger) MBXGraphAxisTicksHeight:(MBXGraphAxis *)graphAxis;
-- (UIColor *) MBXGraphAxisColor:(MBXGraphAxis *)graphAxis;
-
+@protocol MBXGraphDelegate <NSObject>
+- (void) MBXLineGraphView:(MBXGraphView *)graphView configureAppearanceGraphVM:(MBXGraphVM *)graphVM;
 @end

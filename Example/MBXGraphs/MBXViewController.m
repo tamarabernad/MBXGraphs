@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 tamarabernad. All rights reserved.
 //
 
-#import "MBXViewController.h"
-#import "MBXLineGraphView.h"
-#import "MBXGraphAxis.h"
+#import "MBXViewController.h""
+#import "MBXGraphView.h"
+#import "MBXGraphAxisView.h"
 #import "MBXLineGraphDataSource.h"
 
 @interface MBXViewController ()<MBXGraphDelegate, MBXGraphAxisDelegate>
-@property (weak, nonatomic) IBOutlet MBXLineGraphView *viewGraph;
-@property (weak, nonatomic) IBOutlet MBXGraphAxis *viewYAxis;
-@property (weak, nonatomic) IBOutlet MBXGraphAxis *viewXAxis;
+@property (weak, nonatomic) IBOutlet MBXGraphView *viewGraph;
+@property (weak, nonatomic) IBOutlet MBXGraphAxisView *viewYAxis;
+@property (weak, nonatomic) IBOutlet MBXGraphAxisView *viewXAxis;
 
 @property (nonatomic, strong) MBXLineGraphDataSource *dataSource;
 
@@ -82,7 +82,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)MBXLineGraphView:(MBXLineGraphView *)graphView configureAppearanceGraphVM:(MBXLineGraphVM *)graphVM{
+- (void)MBXLineGraphView:(MBXGraphView *)graphView configureAppearanceGraphVM:(MBXGraphVM *)graphVM{
 
     graphVM.color = [UIColor greenColor];
     graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
@@ -93,19 +93,19 @@
 
 }
 
-- (UIView *)MBXGraphAxis:(MBXGraphAxis *)graphAxis ViewForValue:(NSNumber *)value{
+- (UIView *)MBXGraphAxis:(MBXGraphAxisView *)graphAxis ViewForValue:(NSNumber *)value{
     UILabel *label = [UILabel new];
     label.text = [value stringValue];
     [label sizeToFit];
     return label;
 }
-- (NSInteger)MBXGraphAxisTicksHeight:(MBXGraphAxis *)graphAxis{
+- (NSInteger)MBXGraphAxisTicksHeight:(MBXGraphAxisView *)graphAxis{
     return 1;
 }
-- (NSInteger)MBXGraphAxisTicksWidth:(MBXGraphAxis *)graphAxis{
+- (NSInteger)MBXGraphAxisTicksWidth:(MBXGraphAxisView *)graphAxis{
     return 4;
 }
-- (UIColor *)MBXGraphAxisColor:(MBXGraphAxis *)graphAxis{
+- (UIColor *)MBXGraphAxisColor:(MBXGraphAxisView *)graphAxis{
     return [UIColor purpleColor];
 }
 @end

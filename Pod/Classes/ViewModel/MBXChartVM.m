@@ -25,7 +25,7 @@
 #import "MBXChartVM.h"
 
 @implementation MBXChartVM
-- (MBXLineGraphVM *)getGraphByUid:(NSString *)uid{
+- (MBXGraphVM *)getGraphByUid:(NSString *)uid{
     NSUInteger index = [[self.graphs valueForKey:@"uid"] indexOfObject:uid];
     return index != NSNotFound ? [self.graphs objectAtIndex:index] : nil;
 }

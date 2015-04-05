@@ -22,13 +22,12 @@
  
  */
 #import <Foundation/Foundation.h>
-#import "MBXLineGraphVM.h"
+#import "MBXGraphVM.h"
 #import "MBXAxisVM.h"
-@class MBXLineGraphView;
+@class MBXGraphView;
 
 
 @protocol MBXGraphDataSource <NSObject>
-- (NSInteger)graphViewNumberOfGraphs:(MBXLineGraphView *)graphView;
 - (NSArray *)graphVMs;
 - (MBXAxisVM *)xAxisVM;
 - (MBXAxisVM *)yAxisVM;

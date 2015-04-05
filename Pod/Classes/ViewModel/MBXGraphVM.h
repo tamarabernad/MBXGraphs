@@ -52,7 +52,7 @@ typedef enum{
     
 }MBXMarkerStyle;
 
-@interface MBXLineGraphVM : NSObject
+@interface MBXGraphVM : NSObject
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic) NSInteger priority;
 @property (nonatomic, strong) NSArray *proportionPoints;
