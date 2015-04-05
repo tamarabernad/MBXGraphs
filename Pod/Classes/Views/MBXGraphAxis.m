@@ -42,7 +42,7 @@
 }
 - (void)setAxisVM:(MBXAxisVM *)axisVM{
     [self calculatePointsInViewWithProportionValues:axisVM.proportionValues];
-    [self createViewsWithValues:axisVM.valueStrings];
+    [self createViewsWithValues:axisVM.values];
     [self setNeedsLayout];
 }
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -132,8 +132,8 @@
     
     UIView *valueView;
     UIView *tickerView;
-    for (NSString *valueString in values) {
-        valueView = [self.delegate MBXGraphAxis:self ViewForValue:valueString];
+    for (NSNumber *value in values) {
+        valueView = [self.delegate MBXGraphAxis:self ViewForValue:value];
         [self.valuesContainer addSubview:valueView];
         
         tickerView = [[UIView alloc] init];

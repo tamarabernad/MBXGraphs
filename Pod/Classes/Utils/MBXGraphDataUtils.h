@@ -30,5 +30,4 @@
 - (NSArray *)calculateProportionValues:(NSArray *)values WithRange:(MBXValueRange )range;
 - (NSArray *)createProportionPointsWithXProportionValues:(NSArray *)xProportionValues AndYProportionValues:(NSArray *)yProportionValues;
 - (NSArray *)calculateIntervalsInRange:(MBXValueRange)range;
-- (NSArray *)formatIntervalStringsWithIntervals:(NSArray *)intervals;
 @end

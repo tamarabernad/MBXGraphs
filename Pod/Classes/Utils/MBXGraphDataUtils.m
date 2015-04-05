@@ -170,14 +170,4 @@
     }
     return yValues;
 }
-- (NSArray *)formatIntervalStringsWithIntervals:(NSArray *)intervals{
-    
-    NSString *yAxisStr;
-    NSMutableArray *formattedStringIntervals = [[NSMutableArray alloc] init];
-    for (NSNumber *interval in intervals) {
-        yAxisStr = [interval stringValue];
-        [formattedStringIntervals addObject:yAxisStr];
-    }
-    return formattedStringIntervals;
-}
 @end

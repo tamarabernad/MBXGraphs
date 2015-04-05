@@ -93,9 +93,9 @@
 
 }
 
-- (UIView *)MBXGraphAxis:(MBXGraphAxis *)graphAxis ViewForValue:(NSString *)value{
+- (UIView *)MBXGraphAxis:(MBXGraphAxis *)graphAxis ViewForValue:(NSNumber *)value{
     UILabel *label = [UILabel new];
-    label.text = value;
+    label.text = [value stringValue];
     [label sizeToFit];
     return label;
 }

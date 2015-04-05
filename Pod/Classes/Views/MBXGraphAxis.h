@@ -46,7 +46,7 @@ typedef enum
 @protocol MBXGraphAxisDelegate <NSObject>
 
 @required
-- (UIView *) MBXGraphAxis:(MBXGraphAxis *)graphAxis ViewForValue:(NSString *)value;
+- (UIView *) MBXGraphAxis:(MBXGraphAxis *)graphAxis ViewForValue:(NSNumber *)value;
 @optional
 - (NSInteger) MBXGraphAxisTicksWidth:(MBXGraphAxis *)graphAxis;
 - (NSInteger) MBXGraphAxisTicksHeight:(MBXGraphAxis *)graphAxis;

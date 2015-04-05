@@ -26,5 +26,6 @@ THE SOFTWARE.
 
 @interface MBXAxisVM : NSObject
 @property (nonatomic, strong) NSArray *proportionValues;
-@property (nonatomic, strong) NSArray *valueStrings;
+//@property (nonatomic, strong) NSArray *valueStrings;
+@property (nonatomic, strong) NSArray *values;
 @end

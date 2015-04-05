@@ -100,7 +100,7 @@
     MBXValueRange xRange = [self.dataUtils rangeWithTicksForValues:values];
     NSArray *xAxisIntervals =[self.dataUtils calculateIntervalsInRange:xRange];
     axisVM.proportionValues = [self.dataUtils calculateProportionValues:xAxisIntervals WithRange:xRange];
-    axisVM.valueStrings = [self.dataUtils formatIntervalStringsWithIntervals:xAxisIntervals];
+    axisVM.values = xAxisIntervals;
     return axisVM;
 }
 - (NSArray *)allXValues
