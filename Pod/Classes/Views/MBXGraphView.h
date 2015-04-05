@@ -30,7 +30,7 @@
 
 @interface MBXGraphView : UIView
 @property (nonatomic, assign)   id <MBXGraphDataSource> dataSource;
-@property (nonatomic, assign)   id <MBXGraphDelegate> appearanceDelegate;
+@property (nonatomic, assign)   id <MBXGraphDelegate> delegate;
 - (void)reload;
 @end
 

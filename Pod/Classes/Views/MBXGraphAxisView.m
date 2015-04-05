@@ -37,6 +37,11 @@
 ////////////////////////////////////
 #pragma mark - Public
 ////////////////////////////////////
+
+
+- (void)setDataSource:(id<MBXGraphDataSource>)dataSource{
+    _dataSource = dataSource;
+}
 - (void)reload{
     [self setAxisVM:self.direction == kDirectionHorizontal ? [self.dataSource xAxisVM] : [self.dataSource yAxisVM]];
 }
@@ -55,18 +60,15 @@
 ////////////////////////////////////
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    //TODO do this in designated indicator this is only available for nib files
     self = [super initWithCoder:aDecoder];
     if (self) {
-        
-        self.valuesContainer = [[UIView alloc] init];
-        [self addSubview:self.valuesContainer];
-        
-        self.ticksContainer = [[UIView alloc] init];
-        [self addSubview:self.ticksContainer];
-        
-        self.axisLineView = [[UIView alloc] init];
-        [self addSubview:self.axisLineView];
+        [self initContainers];
+    }
+    return self;
+}
+- (instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        [self initContainers];
     }
     return self;
 }
@@ -161,5 +163,15 @@
         [pivs addObject:[self viewPointWithProportionPoint:[proportionValues objectAtIndex:i]]];
     }
     self.pointsInView = [NSArray arrayWithArray:pivs];
+}
+- (void)initContainers{
+    self.valuesContainer = [[UIView alloc] init];
+    [self addSubview:self.valuesContainer];
+    
+    self.ticksContainer = [[UIView alloc] init];
+    [self addSubview:self.ticksContainer];
+    
+    self.axisLineView = [[UIView alloc] init];
+    [self addSubview:self.axisLineView];
 }
 @end

@@ -18,9 +18,39 @@
 
 @property (nonatomic, strong) MBXLineGraphDataSource *dataSource;
 
+
+@property (nonatomic, strong) MBXGraphView *viewGraphCode;
+@property (nonatomic, strong) MBXGraphAxisView *viewYAxisCode;
+@property (nonatomic, strong) MBXGraphAxisView *viewXAxisCode;
+
 @end
 
 @implementation MBXViewController
+
+- (MBXGraphAxisView *)viewXAxisCode{
+    if(!_viewXAxisCode){
+        _viewXAxisCode = [MBXGraphAxisView new];
+        [_viewXAxisCode setDirection:kDirectionHorizontal];
+        [_viewXAxisCode setBackgroundColor:[UIColor redColor]];
+    }
+    return _viewXAxisCode;
+}
+- (MBXGraphAxisView *)viewYAxisCode{
+    if(!_viewYAxisCode){
+        _viewYAxisCode = [MBXGraphAxisView new];
+        [_viewYAxisCode setDirection:kDirectionVertical];
+        [_viewYAxisCode setBackgroundColor:[UIColor greenColor]];
+    }
+    return _viewYAxisCode;
+}
+- (MBXGraphView *)viewGraphCode{
+    if(!_viewGraphCode){
+        _viewGraphCode = [MBXGraphView new];
+        [_viewGraphCode setBackgroundColor:[UIColor blueColor]];
+    }
+    return _viewGraphCode;
+}
+
 - (IBAction)onBtClick:(id)sender {
     [self reload];
 }
@@ -33,15 +63,46 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    // nib created graph
+//    self.viewGraph.dataSource = self.dataSource;
+//    self.viewYAxis.dataSource = self.dataSource;
+//    self.viewXAxis.dataSource = self.dataSource;
+//    
+//    self.viewXAxis.direction = kDirectionHorizontal;
+//    self.viewYAxis.direction = kDirectionVertical;
+//    self.viewGraph.appearanceDelegate = self;
+//    
+//    self.viewXAxis.delegate = self;
+//    self.viewYAxis.delegate = self;
+
+    // code created graph
+    [self.view addSubview:self.viewGraphCode];
+    [self.view addSubview:self.viewYAxisCode];
+    [self.view addSubview:self.viewXAxisCode];
+    
+    self.viewYAxisCode.frame = CGRectMake(0, 270, 40, 188);
+    self.viewXAxisCode.frame = CGRectMake(40, 458, 256, 40);
+    self.viewGraphCode.frame = CGRectMake(40, 270, 256, 188);
+
+    self.viewGraphCode.dataSource = self.dataSource;
+    self.viewYAxisCode.dataSource = self.dataSource;
+    self.viewXAxisCode.dataSource = self.dataSource;
+    
+    self.viewGraphCode.delegate = self;
+    self.viewYAxisCode.delegate = self;
+    self.viewXAxisCode.delegate = self;
+    
+    
+    
     NSArray *graphValues = @[
                              @[@{@"y":@3.0, @"x": @2005},
-                             @{@"y":@3.5, @"x": @2006},
-                             @{@"y":@4.0, @"x": @2007},
-                             @{@"y":@1.2, @"x": @2008},
-                             @{@"y":@7.0, @"x": @2009},
-                             @{@"y":@7.0, @"x": @2010},
-                             @{@"y":@2.0, @"x": @2011}],
+                               @{@"y":@3.5, @"x": @2006},
+                               @{@"y":@4.0, @"x": @2007},
+                               @{@"y":@1.2, @"x": @2008},
+                               @{@"y":@7.0, @"x": @2009},
+                               @{@"y":@7.0, @"x": @2010},
+                               @{@"y":@2.0, @"x": @2011}],
                              
                              @[@{@"y":@0.5, @"x": @2008},
                                @{@"y":@1.5, @"x": @2009},
@@ -51,17 +112,6 @@
                                @{@"y":@8.0, @"x": @2013},
                                @{@"y":@2.0, @"x": @2014}]
                              ];
-    
-    
-    self.viewGraph.dataSource = self.dataSource;
-    self.viewYAxis.dataSource = self.dataSource;
-    self.viewXAxis.dataSource = self.dataSource;
-    self.viewXAxis.direction = kDirectionHorizontal;
-    self.viewYAxis.direction = kDirectionVertical;
-    self.viewGraph.appearanceDelegate = self;
-    
-    self.viewXAxis.delegate = self;
-    self.viewYAxis.delegate = self;
     [self.dataSource setMultipleGraphValues:graphValues];
 }
 - (void)viewDidAppear:(BOOL)animated{
@@ -76,11 +126,6 @@
     [self.viewGraph reload];
     [self.viewYAxis reload];
     [self.viewXAxis reload];
-}
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 - (void)MBXLineGraphView:(MBXGraphView *)graphView configureAppearanceGraphVM:(MBXGraphVM *)graphVM{
 

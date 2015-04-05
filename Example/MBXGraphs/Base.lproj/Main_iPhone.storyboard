@@ -19,18 +19,18 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MPj-Pk-U9M" customClass="MBXGraphView">
-                                <rect key="frame" x="40" y="127" width="256" height="281"/>
+                                <rect key="frame" x="40" y="40" width="256" height="188"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IKn-rK-d2N" customClass="MBXGraphAxisView">
-                                <rect key="frame" x="0.0" y="127" width="40" height="281"/>
+                                <rect key="frame" x="0.0" y="40" width="40" height="188"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="Hd3-fN-AYN"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZZ-T3-fJr" customClass="MBXGraphAxisView">
-                                <rect key="frame" x="40" y="408" width="256" height="40"/>
+                                <rect key="frame" x="40" y="228" width="256" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="VYm-r9-7Gv"/>
@@ -48,7 +48,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="wZZ-T3-fJr" secondAttribute="bottom" constant="120" id="6eH-kk-ZLZ"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="wZZ-T3-fJr" secondAttribute="bottom" constant="300" id="6eH-kk-ZLZ"/>
                             <constraint firstItem="MPj-Pk-U9M" firstAttribute="leading" secondItem="IKn-rK-d2N" secondAttribute="trailing" id="B6a-Bp-bfy"/>
                             <constraint firstItem="IKn-rK-d2N" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="PMH-iD-a4v"/>
                             <constraint firstItem="wZZ-T3-fJr" firstAttribute="top" secondItem="IKn-rK-d2N" secondAttribute="bottom" id="Qv8-eB-bHZ"/>
@@ -57,7 +57,7 @@
                             <constraint firstItem="IKn-rK-d2N" firstAttribute="top" secondItem="MPj-Pk-U9M" secondAttribute="top" id="leu-mR-quE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wZZ-T3-fJr" secondAttribute="trailing" constant="8" id="lxt-cZ-mve"/>
                             <constraint firstItem="wZZ-T3-fJr" firstAttribute="top" secondItem="MPj-Pk-U9M" secondAttribute="bottom" id="mQX-TG-MKJ"/>
-                            <constraint firstItem="IKn-rK-d2N" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="107" id="sck-cH-grY"/>
+                            <constraint firstItem="IKn-rK-d2N" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="sck-cH-grY"/>
                         </constraints>
                     </view>
                     <connections>

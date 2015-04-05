@@ -41,14 +41,17 @@
 ////////////////////////////////
 #pragma mark - Life cycle
 ////////////////////////////////
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    //TODO change this to the designed initializer, this would only work for nib created graphViews
-    if(self = [super initWithCoder:aDecoder]){
-
-        self.graphLayer = [CAShapeLayer layer];
-        [self.layer addSublayer:self.graphLayer];
-        self.graphLayer.actions = @{@"sublayers":[NSNull null]};
-
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initContainers];
+    }
+    return self;
+}
+- (instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        [self initContainers];
     }
     return self;
 }
@@ -64,7 +67,7 @@
     
     for (MBXGraphVM *graphVM in [self.dataSource graphVMs]) {
         [self generatePointsInViewForGraphModel:graphVM];
-        [self.appearanceDelegate MBXLineGraphView:self configureAppearanceGraphVM:graphVM];
+        [self.delegate MBXLineGraphView:self configureAppearanceGraphVM:graphVM];
         [self drawGraphWithGraphModel:graphVM];
     }
 }
@@ -216,5 +219,14 @@
         [path addLineToPoint:point];
     }
     return path;
+}
+
+////////////////////////////////
+#pragma - Helpers
+////////////////////////////////
+- (void)initContainers{
+    self.graphLayer = [CAShapeLayer layer];
+    [self.layer addSublayer:self.graphLayer];
+    self.graphLayer.actions = @{@"sublayers":[NSNull null]};
 }
 @end
