@@ -25,11 +25,15 @@
 #import <UIKit/UIKit.h>
 #import "MBXLineGraphVM.h"
 #import "MBXGraphDataSource.h"
-#import "MBXGraphAppearanceDelegate.h"
-@protocol MBXGraphDataSource;
+
+@protocol MBXGraphDataSource, MBXGraphDelegate;
 
 @interface MBXLineGraphView : UIView
 @property (nonatomic, assign)   id <MBXGraphDataSource> dataSource;
-@property (nonatomic, assign)   id <MBXGraphAppearanceDelegate> appearanceDelegate;
+@property (nonatomic, assign)   id <MBXGraphDelegate> appearanceDelegate;
 - (void)reload;
+@end
+
+@protocol MBXGraphDelegate <NSObject>
+- (void) MBXLineGraphView:(MBXLineGraphView *)graphView configureAppearanceGraphVM:(MBXLineGraphVM *)graphVM;
 @end

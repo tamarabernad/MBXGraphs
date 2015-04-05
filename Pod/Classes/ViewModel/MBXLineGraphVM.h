@@ -54,13 +54,11 @@ typedef enum{
 
 @interface MBXLineGraphVM : NSObject
 @property (nonatomic, strong) NSString *uid;
+@property (nonatomic) NSInteger priority;
 @property (nonatomic, strong) NSArray *proportionPoints;
 @property (nonatomic, strong) NSArray *pointsInView;
-@property (nonatomic, strong) NSArray *yValues;
-@property (nonatomic, strong) NSArray *xValues;
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) UIColor *fillColor;
-@property (nonatomic) NSInteger priority;
 @property (nonatomic, strong) UIImage *markerImage;
 
 @property (nonatomic) CGFloat opacity;

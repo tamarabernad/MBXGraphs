@@ -30,26 +30,22 @@
 		4EB70E12F4CA0DF32D31A445 /* MBXNumberUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9DD7B9CB207563C801E0C /* MBXNumberUtils.m */; };
 		612EFCE382430EFB3B044897 /* MBXGraphAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = C3FD24C5EB3BA49E964863F8 /* MBXGraphAxis.h */; };
 		621EFCFAD288CE80831B9782 /* MBXChartVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8372EDDC7969B28F8E5FABD2 /* MBXChartVM.m */; };
+		639A51061AD1564A0014D045 /* MBXLineGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = 639A51041AD1564A0014D045 /* MBXLineGraphView.h */; };
+		639A51071AD1564A0014D045 /* MBXLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 639A51051AD1564A0014D045 /* MBXLineGraphView.m */; };
 		6874D496476DDDA33C192E3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 421F80AC8FFF5DD7C0A8721E /* UIKit.framework */; };
 		7108EBC93AF3272323333900 /* MBXChartVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8372EDDC7969B28F8E5FABD2 /* MBXChartVM.m */; };
-		7687F6AFBB1EEDAA2ACF18B9 /* MBXGraphAppearanceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = E407ECA24EC777C21B88BEFA /* MBXGraphAppearanceDelegate.h */; };
-		79FE68BD7CD3778F76011DF9 /* MBXLineGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = E5ACB13869212DD92BD3B1EA /* MBXLineGraphView.h */; };
 		7CA6934BB35398B1AFC36060 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA6D4B6F7CE4D64AC6D91E39 /* CoreGraphics.framework */; };
 		8F4809284F8D35CECEBA1F54 /* MBXLineGraphVM.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E14BC8CCD48DDA0A73D0B6C /* MBXLineGraphVM.h */; };
 		9152341737AA1FB571AB104C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50164C0DF17696768562CFF3 /* Foundation.framework */; };
 		96A0E486139F9C34533ADFC4 /* MBXLineGraphDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A10A9F876A32D9A27F20E4 /* MBXLineGraphDataSource.h */; };
 		9A8C8FAA9671EE42AC1E0A59 /* MBXAxisVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 240650DFDB22E6E9DEE36F01 /* MBXAxisVM.m */; };
 		9ECEE462238F841C85038114 /* MBXGraphDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = CD5A317895C5BE31EB42BEAC /* MBXGraphDataSource.h */; };
-		A27F50C5AD5BC9E140317B2F /* MBXLineGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = E5ACB13869212DD92BD3B1EA /* MBXLineGraphView.h */; };
-		B731C72498DC50CF2E2BDFA0 /* MBXGraphAppearanceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = E407ECA24EC777C21B88BEFA /* MBXGraphAppearanceDelegate.h */; };
 		C5D3565E63F7CBEDC7F1CD5E /* MBXGraphDataUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F90641FD5887B7F326C1BDB9 /* MBXGraphDataUtils.m */; };
-		C6974BFA3AB59123E9A35A5D /* MBXLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DDECBDF44825B0B9400C4 /* MBXLineGraphView.m */; };
 		C6F2DEA7FB84BAFFFDEC617A /* MBXNumberUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = CF2225425BA13FCD6D3AF35B /* MBXNumberUtils.h */; };
 		C9A7AF798350C92A97CEC035 /* MBXGraphDataUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F3F113F2F7300A9630D8B3 /* MBXGraphDataUtils.h */; };
 		CB460153010D8427E109B551 /* MBXAxisVM.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D930798C13E393EF0F20458 /* MBXAxisVM.h */; };
 		D178C91CF9177E6C2B86063D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50164C0DF17696768562CFF3 /* Foundation.framework */; };
 		D7C80767BEBDCB22BF1CA5A2 /* MBXLineGraphDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B2F79BCDE1394DA827101BC /* MBXLineGraphDataSource.m */; };
-		E1DF63C15202205E37353C93 /* MBXLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DDECBDF44825B0B9400C4 /* MBXLineGraphView.m */; };
 		E47F3D6C449945CF6A0E69FB /* Pods-MBXGraphs-MBXGraphs-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B666052B6F09A9D71D39C9D /* Pods-MBXGraphs-MBXGraphs-dummy.m */; };
 		E9D7163B0DCDFAC54B99A4BE /* MBXLineGraphVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 735F8D181D70C68964E8FD74 /* MBXLineGraphVM.m */; };
 		ECEF4686E9B5D768E969DFA6 /* MBXLineGraphDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A10A9F876A32D9A27F20E4 /* MBXLineGraphDataSource.h */; };
@@ -109,6 +105,8 @@
 		53565EE32CF5428C007A36E2 /* Pods-Tests-MBXGraphs.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-MBXGraphs.xcconfig"; path = "../Pods-Tests-MBXGraphs/Pods-Tests-MBXGraphs.xcconfig"; sourceTree = "<group>"; };
 		55F3F113F2F7300A9630D8B3 /* MBXGraphDataUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBXGraphDataUtils.h; path = Pod/Classes/Utils/MBXGraphDataUtils.h; sourceTree = "<group>"; };
 		578EA659DAFDF420E09C4948 /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
+		639A51041AD1564A0014D045 /* MBXLineGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBXLineGraphView.h; path = Pod/Classes/Views/MBXLineGraphView.h; sourceTree = "<group>"; };
+		639A51051AD1564A0014D045 /* MBXLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBXLineGraphView.m; path = Pod/Classes/Views/MBXLineGraphView.m; sourceTree = "<group>"; };
 		6E6379C36B59EEE7D8AFEBE4 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		72220C8438762CD4551305DE /* Pods-MBXGraphs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MBXGraphs.debug.xcconfig"; sourceTree = "<group>"; };
 		735F8D181D70C68964E8FD74 /* MBXLineGraphVM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MBXLineGraphVM.m; path = Pod/Classes/ViewModel/MBXLineGraphVM.m; sourceTree = "<group>"; };
@@ -127,14 +125,11 @@
 		CF2225425BA13FCD6D3AF35B /* MBXNumberUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBXNumberUtils.h; path = Pod/Classes/Utils/MBXNumberUtils.h; sourceTree = "<group>"; };
 		D0E913D272701478B76C2757 /* Pods-MBXGraphs-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MBXGraphs-dummy.m"; sourceTree = "<group>"; };
 		D104C99075D77DE1C0CF0AAC /* Pods-MBXGraphs-MBXGraphs.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MBXGraphs-MBXGraphs.xcconfig"; sourceTree = "<group>"; };
-		D30DDECBDF44825B0B9400C4 /* MBXLineGraphView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MBXLineGraphView.m; path = Pod/Classes/Views/MBXLineGraphView.m; sourceTree = "<group>"; };
 		DA75F41F92AC3FB49F4B61F9 /* libPods-MBXGraphs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MBXGraphs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB97ABF0195E4760D153CDE /* MBXGraphs.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBXGraphs.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC337EF52989C4DA1903E4C9 /* Pods-MBXGraphs-MBXGraphs-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MBXGraphs-MBXGraphs-Private.xcconfig"; sourceTree = "<group>"; };
 		E1B78938DDD1B97A2003696E /* Pods-Tests-MBXGraphs-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-Tests-MBXGraphs-dummy.m"; path = "../Pods-Tests-MBXGraphs/Pods-Tests-MBXGraphs-dummy.m"; sourceTree = "<group>"; };
 		E3A10A9F876A32D9A27F20E4 /* MBXLineGraphDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBXLineGraphDataSource.h; path = Pod/Classes/DataSource/MBXLineGraphDataSource.h; sourceTree = "<group>"; };
-		E407ECA24EC777C21B88BEFA /* MBXGraphAppearanceDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBXGraphAppearanceDelegate.h; path = Pod/Classes/Views/MBXGraphAppearanceDelegate.h; sourceTree = "<group>"; };
-		E5ACB13869212DD92BD3B1EA /* MBXLineGraphView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBXLineGraphView.h; path = Pod/Classes/Views/MBXLineGraphView.h; sourceTree = "<group>"; };
 		ECC5E40C6AD26FB52FCE206B /* libPods-Tests-MBXGraphs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests-MBXGraphs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5CD47D10F5683EC336E6CD0 /* Pods-Tests-MBXGraphs-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-MBXGraphs-Private.xcconfig"; path = "../Pods-Tests-MBXGraphs/Pods-Tests-MBXGraphs-Private.xcconfig"; sourceTree = "<group>"; };
 		F90641FD5887B7F326C1BDB9 /* MBXGraphDataUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MBXGraphDataUtils.m; path = Pod/Classes/Utils/MBXGraphDataUtils.m; sourceTree = "<group>"; };
@@ -194,18 +189,17 @@
 				240650DFDB22E6E9DEE36F01 /* MBXAxisVM.m */,
 				44638ACC98E646876313222D /* MBXChartVM.h */,
 				8372EDDC7969B28F8E5FABD2 /* MBXChartVM.m */,
-				E407ECA24EC777C21B88BEFA /* MBXGraphAppearanceDelegate.h */,
 				C3FD24C5EB3BA49E964863F8 /* MBXGraphAxis.h */,
 				0C038555959A9C5BA6352B7E /* MBXGraphAxis.m */,
 				CD5A317895C5BE31EB42BEAC /* MBXGraphDataSource.h */,
 				55F3F113F2F7300A9630D8B3 /* MBXGraphDataUtils.h */,
 				F90641FD5887B7F326C1BDB9 /* MBXGraphDataUtils.m */,
+				639A51041AD1564A0014D045 /* MBXLineGraphView.h */,
+				639A51051AD1564A0014D045 /* MBXLineGraphView.m */,
 				E3A10A9F876A32D9A27F20E4 /* MBXLineGraphDataSource.h */,
 				9B2F79BCDE1394DA827101BC /* MBXLineGraphDataSource.m */,
 				9E14BC8CCD48DDA0A73D0B6C /* MBXLineGraphVM.h */,
 				735F8D181D70C68964E8FD74 /* MBXLineGraphVM.m */,
-				E5ACB13869212DD92BD3B1EA /* MBXLineGraphView.h */,
-				D30DDECBDF44825B0B9400C4 /* MBXLineGraphView.m */,
 				CF2225425BA13FCD6D3AF35B /* MBXNumberUtils.h */,
 				8CC9DD7B9CB207563C801E0C /* MBXNumberUtils.m */,
 				71B8FB77EF99C5566BE3CCC4 /* Support Files */,
@@ -327,13 +321,11 @@
 			files = (
 				CB460153010D8427E109B551 /* MBXAxisVM.h in Headers */,
 				0E9D0B3CBDEE1E042042958D /* MBXChartVM.h in Headers */,
-				B731C72498DC50CF2E2BDFA0 /* MBXGraphAppearanceDelegate.h in Headers */,
 				612EFCE382430EFB3B044897 /* MBXGraphAxis.h in Headers */,
 				9ECEE462238F841C85038114 /* MBXGraphDataSource.h in Headers */,
 				058FD4B6E44DD3142168C222 /* MBXGraphDataUtils.h in Headers */,
 				96A0E486139F9C34533ADFC4 /* MBXLineGraphDataSource.h in Headers */,
 				8F4809284F8D35CECEBA1F54 /* MBXLineGraphVM.h in Headers */,
-				A27F50C5AD5BC9E140317B2F /* MBXLineGraphView.h in Headers */,
 				2EF738178EA633E3954F915F /* MBXNumberUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,13 +336,12 @@
 			files = (
 				4A81D959FB2E11E1529E34F7 /* MBXAxisVM.h in Headers */,
 				494393283A4213A0C9FDFF3B /* MBXChartVM.h in Headers */,
-				7687F6AFBB1EEDAA2ACF18B9 /* MBXGraphAppearanceDelegate.h in Headers */,
 				373A7FD98A9274CB7AF7C03C /* MBXGraphAxis.h in Headers */,
 				425B9927F3EAF6D33A214E32 /* MBXGraphDataSource.h in Headers */,
 				C9A7AF798350C92A97CEC035 /* MBXGraphDataUtils.h in Headers */,
 				ECEF4686E9B5D768E969DFA6 /* MBXLineGraphDataSource.h in Headers */,
 				4D16469F998EFAEBB06DD685 /* MBXLineGraphVM.h in Headers */,
-				79FE68BD7CD3778F76011DF9 /* MBXLineGraphView.h in Headers */,
+				639A51061AD1564A0014D045 /* MBXLineGraphView.h in Headers */,
 				C6F2DEA7FB84BAFFFDEC617A /* MBXNumberUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,9 +486,9 @@
 				C5D3565E63F7CBEDC7F1CD5E /* MBXGraphDataUtils.m in Sources */,
 				D7C80767BEBDCB22BF1CA5A2 /* MBXLineGraphDataSource.m in Sources */,
 				239C822A6DE498C5164C8EBF /* MBXLineGraphVM.m in Sources */,
-				E1DF63C15202205E37353C93 /* MBXLineGraphView.m in Sources */,
 				3C23FC68E9129CC22E2D1E0A /* MBXNumberUtils.m in Sources */,
 				E47F3D6C449945CF6A0E69FB /* Pods-MBXGraphs-MBXGraphs-dummy.m in Sources */,
+				639A51071AD1564A0014D045 /* MBXLineGraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,7 +502,6 @@
 				1D093A724FE9FE338B33CADB /* MBXGraphDataUtils.m in Sources */,
 				40B852816D3EC15CDCE4FE0C /* MBXLineGraphDataSource.m in Sources */,
 				E9D7163B0DCDFAC54B99A4BE /* MBXLineGraphVM.m in Sources */,
-				C6974BFA3AB59123E9A35A5D /* MBXLineGraphView.m in Sources */,
 				4EB70E12F4CA0DF32D31A445 /* MBXNumberUtils.m in Sources */,
 				F9F0272615849FB780D3A6FC /* Pods-Tests-MBXGraphs-dummy.m in Sources */,
 			);

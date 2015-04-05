@@ -31,5 +31,6 @@
 @property (nonatomic, strong) MBXAxisVM *yAxisVM;
 @property (nonatomic, strong) MBXAxisVM *xAxisVM;
 @property (nonatomic, strong) NSArray *graphs;
+
 - (MBXLineGraphVM *)getGraphByUid:(NSString *)uid;
 @end

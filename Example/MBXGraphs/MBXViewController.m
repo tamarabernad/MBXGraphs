@@ -11,7 +11,7 @@
 #import "MBXGraphAxis.h"
 #import "MBXLineGraphDataSource.h"
 
-@interface MBXViewController ()<MBXGraphAppearanceDelegate, MBXGraphAxisDelegate>
+@interface MBXViewController ()<MBXGraphDelegate, MBXGraphAxisDelegate>
 @property (weak, nonatomic) IBOutlet MBXLineGraphView *viewGraph;
 @property (weak, nonatomic) IBOutlet MBXGraphAxis *viewYAxis;
 @property (weak, nonatomic) IBOutlet MBXGraphAxis *viewXAxis;
