@@ -15,8 +15,6 @@ It can be used with nib files as well as by code created views.
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
-
 ## Installation
 
 MBXGraphs is available through [CocoaPods](http://cocoapods.org/?q=MBXGraphs). To install

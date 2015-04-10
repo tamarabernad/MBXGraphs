@@ -1,11 +1,3 @@
-//
-//  MBXViewController.m
-//  MBXGraphs
-//
-//  Created by tamarabernad on 02/11/2015.
-//  Copyright (c) 2014 tamarabernad. All rights reserved.
-//
-
 #import "MBXViewController.h"
 #import "MBXLineGraphDataSource.h"
 #import "MBXGraphView.h"
