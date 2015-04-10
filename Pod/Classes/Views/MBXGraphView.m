@@ -28,6 +28,7 @@
 
 @interface MBXGraphView()
 @property (nonatomic, strong) CAShapeLayer *graphLayer;
+@property (nonatomic, strong) NSArray *graphVMs;
 
 @end
 
@@ -70,6 +71,7 @@
         [self.delegate MBXLineGraphView:self configureAppearanceGraphVM:graphVM];
         [self drawGraphWithGraphModel:graphVM];
     }
+    self.graphVMs = [self.dataSource graphVMs];
 }
 - (void)clearGraph{
     ((CAShapeLayer *)self.graphLayer).path = nil;
@@ -77,99 +79,16 @@
     [self.graphLayer.sublayers makeObjectsPerformSelector: @selector(removeFromSuperlayer)];
 }
 
-//TODO make this method much nicer
 - (void)drawGraphWithGraphModel:(MBXGraphVM *)graphVM{
-    CAShapeLayer *layer;
-    CAShapeLayer *fillLayer;
-    CALayer *marker;
-    BOOL hasLine = (graphVM.drawingType & MBXLineGraphDawingTypeLine) == MBXLineGraphDawingTypeLine;
-    BOOL hasMarker = (graphVM.drawingType & MBXLineGraphDawingTypeMarker) == MBXLineGraphDawingTypeMarker;
-    BOOL hasFill = (graphVM.drawingType & MBXLineGraphDawingTypeFill) == MBXLineGraphDawingTypeFill;
     
     CAShapeLayer *graphLayer =[CAShapeLayer layer];
     [self.graphLayer addSublayer:graphLayer];
     graphLayer.zPosition = graphVM.priority;
     [graphLayer setHidden:(graphVM.drawingType & MBXLineGraphDawingHidden) == MBXLineGraphDawingHidden];
     
-    if(hasFill){
-        fillLayer =[CAShapeLayer layer];
-        [fillLayer setMasksToBounds:YES];
-        fillLayer.frame = self.graphLayer.bounds;
-        
-        fillLayer.fillColor = graphVM.fillColor.CGColor;
-        fillLayer.opacity = graphVM.fillOpacity;
-        UIBezierPath *path =[self getPathWithPoints:graphVM.pointsInView];
-        UIBezierPath *fullPath = [self getFillPathFromPath:path AndPoints:graphVM.pointsInView];
-        fillLayer.path = fullPath.CGPath;
-        [graphLayer addSublayer:fillLayer];
-    }
-    if (hasLine) {
-        layer = [CAShapeLayer layer];
-        [layer setMasksToBounds:YES];
-        layer.frame = self.graphLayer.bounds;
-        
-        layer.fillColor=[UIColor clearColor].CGColor;
-        layer.lineWidth= 1;
-        layer.opacity = graphVM.opacity;
-        
-        if (graphVM.lineStyle == MBXLineStyleDashed) {
-            [layer setLineDashPattern:
-             [NSArray arrayWithObjects:
-              [NSNumber numberWithInt:5],
-              [NSNumber numberWithInt:2],
-              nil]];
-        }else if (graphVM.lineStyle == MBXLineStyleDotDash) {
-            [layer setLineDashPattern:
-             [NSArray arrayWithObjects:
-              [NSNumber numberWithInt:1],
-              [NSNumber numberWithInt:3],
-              [NSNumber numberWithInt:5],
-              [NSNumber numberWithInt:4],
-              nil]];
-        }
-        [graphLayer addSublayer:layer];
-        
-        UIBezierPath *path =[self getPathWithPoints:graphVM.pointsInView];
-        layer.strokeColor = graphVM.color.CGColor;
-        layer.path = path.CGPath;
-    }
-    if (hasMarker) {
-        marker= [CALayer layer];
-        [marker setMasksToBounds:YES];
-
-        if((graphVM.markerStyle & MBXMarkerStyleFilled) == MBXMarkerStyleFilled){
-            [marker setBackgroundColor:graphVM.color.CGColor];
-        }else if((graphVM.markerStyle & MBXMarkerStyleImage) == MBXMarkerStyleImage){
-            marker.contents =(id) graphVM.markerImage.CGImage;
-        }else{
-            [marker setBorderWidth:1.0];
-            [marker setBackgroundColor:[UIColor whiteColor].CGColor];
-            [marker setBorderColor:graphVM.color.CGColor];
-        }
-        
-        [graphLayer addSublayer:marker];
-        NSInteger markerDim;
-        
-        //TODO ask for the marker as a delegate method
-        if((graphVM.markerStyle & MBXMarkerStyleBig) == MBXMarkerStyleBig){
-            markerDim = 32;
-        }else if((graphVM.markerStyle & MBXMarkerStyleMedium) == MBXMarkerStyleMedium){
-            markerDim = 14;
-        }else{
-            markerDim = 8;
-        }
-        
-        CGPoint endPoint = [[graphVM.pointsInView lastObject] CGPointValue];
-        if (graphVM.markerStyle & MBXMarkerStyleMaxToParentWidth) {
-            endPoint.x = endPoint.x > self.graphLayer.frame.size.width ? self.graphLayer.frame.size.width : endPoint.x;
-        }
-        
-        [marker setCornerRadius:markerDim/2];
-        [CATransaction begin];
-        [CATransaction setValue: (id) kCFBooleanTrue forKey: kCATransactionDisableActions];
-        marker.frame = CGRectMake(endPoint.x- markerDim/2, endPoint.y - markerDim/2, markerDim, markerDim);
-        [CATransaction commit];
-    }
+    [self drawFillGraphOnLayer:self.graphLayer withGraphVM:graphVM];
+    [self drawLineGraphOnLayer:self.graphLayer withGraphVM:graphVM];
+    [self drawMarkerGraphOnLayer:self.graphLayer withGraphVM:graphVM];
 
 }
 ////////////////////////////////
@@ -228,9 +147,150 @@
 ////////////////////////////////
 #pragma - Helpers
 ////////////////////////////////
+- (void)drawMarkerGraphOnLayer:(CALayer *)graphLayer withGraphVM:(MBXGraphVM *)graphVM{
+    BOOL hasMarker = (graphVM.drawingType & MBXLineGraphDawingTypeMarker) == MBXLineGraphDawingTypeMarker;
+    if (!hasMarker) return;
+    MBXGraphVM *previousGraphVM = [self graphVMByUid:graphVM.uid];
+    BOOL animated = (graphVM.drawingType & MBXLineGraphDawingAnimated) == MBXLineGraphDawingAnimated;
+    CALayer *marker;
+    marker= [CALayer layer];
+    [marker setMasksToBounds:YES];
+    
+    if((graphVM.markerStyle & MBXMarkerStyleFilled) == MBXMarkerStyleFilled){
+        [marker setBackgroundColor:graphVM.color.CGColor];
+    }else if((graphVM.markerStyle & MBXMarkerStyleImage) == MBXMarkerStyleImage){
+        marker.contents =(id) graphVM.markerImage.CGImage;
+    }else{
+        [marker setBorderWidth:1.0];
+        [marker setBackgroundColor:[UIColor whiteColor].CGColor];
+        [marker setBorderColor:graphVM.color.CGColor];
+    }
+    
+    [graphLayer addSublayer:marker];
+    NSInteger markerDim;
+    
+    //TODO ask for the marker as a delegate method
+    if((graphVM.markerStyle & MBXMarkerStyleBig) == MBXMarkerStyleBig){
+        markerDim = 32;
+    }else if((graphVM.markerStyle & MBXMarkerStyleMedium) == MBXMarkerStyleMedium){
+        markerDim = 14;
+    }else{
+        markerDim = 8;
+    }
+    
+    CGPoint endPoint = [[graphVM.pointsInView lastObject] CGPointValue];
+    if (graphVM.markerStyle & MBXMarkerStyleMaxToParentWidth) {
+        endPoint.x = endPoint.x > graphLayer.frame.size.width ? graphLayer.frame.size.width : endPoint.x;
+    }
+    
+    [marker setCornerRadius:markerDim/2];
+    CGRect toFrame = CGRectMake(endPoint.x- markerDim/2, endPoint.y - markerDim/2, markerDim, markerDim);
+
+    if(previousGraphVM && animated){
+        CGPoint fromEndpoint = [[previousGraphVM.pointsInView lastObject] CGPointValue];
+        if (previousGraphVM.markerStyle & MBXMarkerStyleMaxToParentWidth) {
+            fromEndpoint.x = fromEndpoint.x > graphLayer.frame.size.width ? graphLayer.frame.size.width : endPoint.x;
+        }
+        marker.frame = toFrame;
+        CABasicAnimation* a = [CABasicAnimation animationWithKeyPath:@"position"];
+        [a setDuration:graphVM.animationDuration];
+        a.fromValue = [NSValue valueWithCGPoint:fromEndpoint];
+        a.toValue = [NSValue valueWithCGPoint:endPoint];
+        [marker addAnimation:a forKey:@"frame"];
+    }else{
+        marker.frame = toFrame;
+    }
+}
+- (void)drawFillGraphOnLayer:(CALayer *)graphLayer withGraphVM:(MBXGraphVM *)graphVM{
+    BOOL hasFill = (graphVM.drawingType & MBXLineGraphDawingTypeFill) == MBXLineGraphDawingTypeFill;
+    if(!hasFill)return;
+    BOOL animated = (graphVM.drawingType & MBXLineGraphDawingAnimated) == MBXLineGraphDawingAnimated;
+    MBXGraphVM *previousGraphVM = [self graphVMByUid:graphVM.uid];
+    CAShapeLayer *fillLayer;
+    fillLayer =[CAShapeLayer layer];
+    [fillLayer setMasksToBounds:YES];
+    fillLayer.frame = graphLayer.bounds;
+    
+    fillLayer.fillColor = graphVM.fillColor.CGColor;
+    fillLayer.opacity = graphVM.fillOpacity;
+    UIBezierPath *path =[self getPathWithPoints:graphVM.pointsInView];
+    path = [self getFillPathFromPath:path AndPoints:graphVM.pointsInView];
+    [graphLayer addSublayer:fillLayer];
+    
+    if(previousGraphVM && animated){
+        UIBezierPath *oldPath =[self getPathWithPoints:previousGraphVM.pointsInView];
+        
+        CABasicAnimation* a = [CABasicAnimation animationWithKeyPath:@"path"];
+        [a setDuration:graphVM.animationDuration];
+        [a setFromValue:(id)oldPath.CGPath];
+        [a setToValue:(id)path.CGPath];
+        
+        fillLayer.path = path.CGPath;
+        [fillLayer addAnimation:a forKey:@"path"];
+    }else{
+        fillLayer.path = path.CGPath;
+    }
+
+}
+- (void)drawLineGraphOnLayer:(CALayer *)graphLayer withGraphVM:(MBXGraphVM *)graphVM{
+    BOOL hasLine = (graphVM.drawingType & MBXLineGraphDawingTypeLine) == MBXLineGraphDawingTypeLine;
+    if(!hasLine)return;
+    BOOL animated = (graphVM.drawingType & MBXLineGraphDawingAnimated) == MBXLineGraphDawingAnimated;
+    MBXGraphVM *previousGraphVM = [self graphVMByUid:graphVM.uid];
+    CAShapeLayer *layer;
+    layer = [CAShapeLayer layer];
+    [layer setMasksToBounds:YES];
+    layer.frame = graphLayer.bounds;
+    
+    layer.fillColor=[UIColor clearColor].CGColor;
+    layer.lineWidth= 1;
+    layer.opacity = graphVM.opacity;
+    
+    if (graphVM.lineStyle == MBXLineStyleDashed) {
+        [layer setLineDashPattern:
+         [NSArray arrayWithObjects:
+          [NSNumber numberWithInt:5],
+          [NSNumber numberWithInt:2],
+          nil]];
+    }else if (graphVM.lineStyle == MBXLineStyleDotDash) {
+        [layer setLineDashPattern:
+         [NSArray arrayWithObjects:
+          [NSNumber numberWithInt:1],
+          [NSNumber numberWithInt:3],
+          [NSNumber numberWithInt:5],
+          [NSNumber numberWithInt:4],
+          nil]];
+    }
+    [graphLayer addSublayer:layer];
+    
+    UIBezierPath *path =[self getPathWithPoints:graphVM.pointsInView];
+    layer.strokeColor = graphVM.color.CGColor;
+    
+    if(previousGraphVM && animated){
+        UIBezierPath *oldPath =[self getPathWithPoints:previousGraphVM.pointsInView];
+        
+        CABasicAnimation* a = [CABasicAnimation animationWithKeyPath:@"path"];
+        [a setDuration:graphVM.animationDuration];
+        [a setFromValue:(id)oldPath.CGPath];
+        [a setToValue:(id)path.CGPath];
+        
+        layer.path = path.CGPath;
+        [layer addAnimation:a forKey:@"path"];
+    }else{
+        layer.path = path.CGPath;
+    }
+}
 - (void)initContainers{
     self.graphLayer = [CAShapeLayer layer];
     [self.layer addSublayer:self.graphLayer];
     self.graphLayer.actions = @{@"sublayers":[NSNull null]};
+}
+- (MBXGraphVM *)graphVMByUid:(NSString *)uid{
+    NSArray *uids = [self.graphVMs valueForKey:@"uid"];
+    MBXGraphVM *ret = nil;
+    if([uids indexOfObject:uid] != NSNotFound){
+        ret = [self.graphVMs objectAtIndex:[uids indexOfObject:uid]];
+    }
+    return ret;
 }
 @end

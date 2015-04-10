@@ -29,7 +29,8 @@ typedef enum{
  MBXLineGraphDawingTypeMarker = 1 << 1,
  MBXLineGraphDawingTypeLine = 1 << 2,
  MBXLineGraphDawingTypeFill = 1 << 3,
- MBXLineGraphDawingHidden = 1 << 4
+ MBXLineGraphDawingHidden = 1 << 4,
+ MBXLineGraphDawingAnimated = 1 << 5,
     
 }MBXLineGraphDawingType;
 
@@ -48,7 +49,8 @@ typedef enum{
     MBXMarkerStyleMedium = 1 << 4,
     MBXMarkerStyleSmall = 1 << 5,
     MBXMarkerStyleMaxToParentWidth = 1 << 6,
-    MBXMarkerStyleHidden = 1 << 7
+    MBXMarkerStyleHidden = 1 << 7,
+    MBXMarkerStyleAnimated = 1 << 7,
     
 }MBXMarkerStyle;
 
@@ -62,6 +64,7 @@ typedef enum{
 @property (nonatomic, strong) UIImage *markerImage;
 
 @property (nonatomic) CGFloat opacity;
+@property (nonatomic) CGFloat animationDuration;
 @property (nonatomic) CGFloat fillOpacity;
 @property (nonatomic) MBXLineGraphDawingType drawingType;
 @property (nonatomic) MBXLineStyle lineStyle;

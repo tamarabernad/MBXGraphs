@@ -18,6 +18,27 @@
 @end
 
 @implementation MBXViewController
+- (IBAction)onChangeValuesclick:(id)sender {
+    NSArray *graphValues = @[
+                             @[@{@"y":@0.0, @"x": @2005},
+                               @{@"y":@0.5, @"x": @2006},
+                               @{@"y":@0.0, @"x": @2007},
+                               @{@"y":@0.2, @"x": @2008},
+                               @{@"y":@0.0, @"x": @2009},
+                               @{@"y":@0.0, @"x": @2010},
+                               @{@"y":@0.0, @"x": @2011}],
+                             
+                             @[@{@"y":@0.5, @"x": @2008},
+                               @{@"y":@0.5, @"x": @2009},
+                               @{@"y":@0.0, @"x": @2010},
+                               @{@"y":@0.2, @"x": @2011},
+                               @{@"y":@0.0, @"x": @2012},
+                               @{@"y":@0.0, @"x": @2013},
+                               @{@"y":@0.0, @"x": @2014}]
+                             ];
+    [self.dataSource setMultipleGraphValues:graphValues];
+    [self reload];
+}
 
 - (MBXGraphAxisView *)viewXAxisCode{
     if(!_viewXAxisCode){
@@ -127,19 +148,19 @@
         graphVM.priority = 1000;
     }else{
         graphVM.color = [UIColor blueColor];
-        graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
         if([graphVM.uid isEqualToString:@"0"]){
             graphVM.lineStyle = MBXLineStyleDotDash;
-            graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
+            graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill | MBXLineGraphDawingAnimated;
             graphVM.markerStyle = MBXMarkerStyleHidden;
         }else{
             graphVM.lineStyle = MBXLineStyleDashed;
-            graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine;
+            graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingAnimated;
             graphVM.markerStyle = MBXMarkerStyleFilled;
         }
         graphVM.fillColor = [UIColor grayColor];
         graphVM.fillOpacity = 0.4;
         graphVM.priority = 1000;
+        graphVM.animationDuration = 0.5f;
     }
 
 }
