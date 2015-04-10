@@ -59,7 +59,7 @@
         NSArray *yProportionValues = [self.dataUtils calculateProportionValues:yValues WithRange:self.yTotalRange];
         NSArray *xProportionValues = [self.dataUtils calculateProportionValues:xValues WithRange:self.xTotalRange];
         MBXGraphVM *lineGraphVM =[MBXGraphVM new];
-        lineGraphVM.uid = [NSString stringWithFormat:@"%lu",index];
+        lineGraphVM.uid = [NSString stringWithFormat:@"%lu",(long)index];
         lineGraphVM.proportionPoints = [self.dataUtils createProportionPointsWithXProportionValues:xProportionValues AndYProportionValues:yProportionValues];
         
         [graphs addObject:lineGraphVM];
