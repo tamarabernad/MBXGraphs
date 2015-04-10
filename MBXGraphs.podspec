@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "MBXGraphs"
-  s.version          = "0.1.0"
+  s.version          = "0.0.1"
   s.summary          = "A simple library to show one or more graphs in a chart"
   s.description      = <<-DESC
                       The ame is to show graphs with a simple list of values for x and y. The library is going to translate those values into points inside the graph. It calculates as well the best intervals to show on the x and y axis.
