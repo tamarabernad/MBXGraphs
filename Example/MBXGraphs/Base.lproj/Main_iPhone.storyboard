@@ -37,8 +37,8 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTA-cq-OYQ">
-                                <rect key="frame" x="274" y="544" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <rect key="frame" x="259" y="538" width="55" height="30"/>
+                                <state key="normal" title="animate">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
