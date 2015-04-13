@@ -3,6 +3,8 @@
 #import "MBXGraphView.h"
 #import "MBXGraphAxisView.h"
 
+#import "MBXChartVM.h"
+
 @interface MBXViewController ()<MBXGraphDelegate, MBXGraphAxisDelegate>
 @property (weak, nonatomic) IBOutlet MBXGraphView *viewGraph;
 @property (weak, nonatomic) IBOutlet MBXGraphAxisView *viewYAxis;
@@ -141,21 +143,18 @@
 
     if(graphView == self.viewGraph){
         graphVM.color = [UIColor greenColor];
-        graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
+        graphVM.drawingType =  MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill;
         graphVM.fillColor = [UIColor redColor];
         graphVM.fillOpacity = 0.4;
-        graphVM.markerStyle = MBXMarkerStyleFilled;
         graphVM.priority = 1000;
     }else{
         graphVM.color = [UIColor blueColor];
         if([graphVM.uid isEqualToString:@"0"]){
             graphVM.lineStyle = MBXLineStyleDotDash;
-            graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill | MBXLineGraphDawingAnimated;
-            graphVM.markerStyle = MBXMarkerStyleHidden;
+            graphVM.drawingType = MBXLineGraphDawingTypeLine | MBXLineGraphDawingTypeFill | MBXLineGraphDawingAnimated;
         }else{
             graphVM.lineStyle = MBXLineStyleDashed;
-            graphVM.drawingType = MBXLineGraphDawingTypeMarker | MBXLineGraphDawingTypeLine | MBXLineGraphDawingAnimated;
-            graphVM.markerStyle = MBXMarkerStyleFilled;
+            graphVM.drawingType = MBXLineGraphDawingTypeLine | MBXLineGraphDawingAnimated;
         }
         graphVM.fillColor = [UIColor grayColor];
         graphVM.fillOpacity = 0.4;
@@ -163,6 +162,25 @@
         graphVM.animationDuration = 0.5f;
     }
 
+}
+- (CGSize)MBXLineGraphView:(MBXGraphView *)graphView markerSizeAtIndex:(NSInteger)index{
+    return CGSizeMake(8, 8);
+}
+- (BOOL)MBXLineGraphView:(MBXGraphView *)graphView hasMarkerAtIndex:(NSInteger)index{
+    if(self.viewGraph == graphView){
+        return index == [self.dataSource.chartVM getGraphByUid:@"0"].proportionPoints.count-1;
+    }else{
+        return YES;
+    }
+}
+- (CALayer *)MBXLineGraphView:(MBXGraphView *)graphView markerViewForPointAtIndex:(NSInteger)index{
+    CALayer *marker = [CALayer layer];
+    [marker setMasksToBounds:YES];
+    [marker setBorderWidth:1.0];
+    [marker setBackgroundColor:[UIColor whiteColor].CGColor];
+    [marker setBorderColor:[UIColor greenColor].CGColor];
+    [marker setCornerRadius:8/2];
+    return marker;
 }
 
 - (UIView *)MBXGraphAxis:(MBXGraphAxisView *)graphAxis ViewForValue:(NSNumber *)value{

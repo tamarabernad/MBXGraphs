@@ -26,7 +26,6 @@
 #import "MBXGraphDataUtils.h"
 #import "MBXNumberUtils.h"
 #import "MBXAxisVM.h"
-#import "MBXChartVM.h"
 
 @interface MBXLineGraphDataSource()
 @property (nonatomic, strong) NSArray *lineGraphVMs;

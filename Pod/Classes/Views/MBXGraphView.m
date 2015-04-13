@@ -148,58 +148,43 @@
 #pragma - Helpers
 ////////////////////////////////
 - (void)drawMarkerGraphOnLayer:(CALayer *)graphLayer withGraphVM:(MBXGraphVM *)graphVM{
-    BOOL hasMarker = (graphVM.drawingType & MBXLineGraphDawingTypeMarker) == MBXLineGraphDawingTypeMarker;
-    if (!hasMarker) return;
     MBXGraphVM *previousGraphVM = [self graphVMByUid:graphVM.uid];
     BOOL animated = (graphVM.drawingType & MBXLineGraphDawingAnimated) == MBXLineGraphDawingAnimated;
     CALayer *marker;
-    marker= [CALayer layer];
-    [marker setMasksToBounds:YES];
-    
-    if((graphVM.markerStyle & MBXMarkerStyleFilled) == MBXMarkerStyleFilled){
-        [marker setBackgroundColor:graphVM.color.CGColor];
-    }else if((graphVM.markerStyle & MBXMarkerStyleImage) == MBXMarkerStyleImage){
-        marker.contents =(id) graphVM.markerImage.CGImage;
-    }else{
-        [marker setBorderWidth:1.0];
-        [marker setBackgroundColor:[UIColor whiteColor].CGColor];
-        [marker setBorderColor:graphVM.color.CGColor];
-    }
-    
-    [graphLayer addSublayer:marker];
-    NSInteger markerDim;
-    
-    //TODO ask for the marker as a delegate method
-    if((graphVM.markerStyle & MBXMarkerStyleBig) == MBXMarkerStyleBig){
-        markerDim = 32;
-    }else if((graphVM.markerStyle & MBXMarkerStyleMedium) == MBXMarkerStyleMedium){
-        markerDim = 14;
-    }else{
-        markerDim = 8;
-    }
-    
-    CGPoint endPoint = [[graphVM.pointsInView lastObject] CGPointValue];
-    if (graphVM.markerStyle & MBXMarkerStyleMaxToParentWidth) {
-        endPoint.x = endPoint.x > graphLayer.frame.size.width ? graphLayer.frame.size.width : endPoint.x;
-    }
-    
-    [marker setCornerRadius:markerDim/2];
-    CGRect toFrame = CGRectMake(endPoint.x- markerDim/2, endPoint.y - markerDim/2, markerDim, markerDim);
+    CGPoint point;
+    CGRect toFrame;
+    CGSize markerSize;
+    for (NSInteger i=0; i<graphVM.pointsInView.count; i++) {
+        point = [[graphVM.pointsInView objectAtIndex:i] CGPointValue];
+        markerSize = [self.delegate MBXLineGraphView:self markerSizeAtIndex:i];
+        toFrame = CGRectMake(point.x- markerSize.width/2, point.y - markerSize.height/2, markerSize.width, markerSize.height);
 
-    if(previousGraphVM && animated){
-        CGPoint fromEndpoint = [[previousGraphVM.pointsInView lastObject] CGPointValue];
-        if (previousGraphVM.markerStyle & MBXMarkerStyleMaxToParentWidth) {
-            fromEndpoint.x = fromEndpoint.x > graphLayer.frame.size.width ? graphLayer.frame.size.width : endPoint.x;
+        if(![self.delegate MBXLineGraphView:self hasMarkerAtIndex:i])continue;
+        
+        marker= [self.delegate MBXLineGraphView:self markerViewForPointAtIndex:i];
+        [graphLayer addSublayer:marker];
+        
+        if (graphVM.markerStyle & MBXMarkerStyleMaxToParentWidth) {
+            point.x = point.x > graphLayer.frame.size.width ? graphLayer.frame.size.width : point.x;
         }
-        marker.frame = toFrame;
-        CABasicAnimation* a = [CABasicAnimation animationWithKeyPath:@"position"];
-        [a setDuration:graphVM.animationDuration];
-        a.fromValue = [NSValue valueWithCGPoint:fromEndpoint];
-        a.toValue = [NSValue valueWithCGPoint:endPoint];
-        [marker addAnimation:a forKey:@"frame"];
-    }else{
-        marker.frame = toFrame;
+        
+        if(previousGraphVM && animated){
+            CGPoint fromEndpoint =[[previousGraphVM.pointsInView objectAtIndex:i] CGPointValue];
+            if (previousGraphVM.markerStyle & MBXMarkerStyleMaxToParentWidth) {
+                fromEndpoint.x = fromEndpoint.x > graphLayer.frame.size.width ? graphLayer.frame.size.width : fromEndpoint.x;
+            }
+            marker.frame = toFrame;
+            CABasicAnimation* a = [CABasicAnimation animationWithKeyPath:@"position"];
+            [a setDuration:graphVM.animationDuration];
+            a.fromValue = [NSValue valueWithCGPoint:fromEndpoint];
+            a.toValue = [NSValue valueWithCGPoint:point];
+            [marker addAnimation:a forKey:@"position"];
+        }else{
+            marker.frame = toFrame;
+        }
+
     }
+    
 }
 - (void)drawFillGraphOnLayer:(CALayer *)graphLayer withGraphVM:(MBXGraphVM *)graphVM{
     BOOL hasFill = (graphVM.drawingType & MBXLineGraphDawingTypeFill) == MBXLineGraphDawingTypeFill;

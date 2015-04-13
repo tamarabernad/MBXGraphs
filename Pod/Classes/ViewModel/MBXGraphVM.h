@@ -26,11 +26,11 @@
 
 typedef enum{
  MBXLineGraphDawingTypeNone = 1 << 0,
- MBXLineGraphDawingTypeMarker = 1 << 1,
- MBXLineGraphDawingTypeLine = 1 << 2,
- MBXLineGraphDawingTypeFill = 1 << 3,
- MBXLineGraphDawingHidden = 1 << 4,
- MBXLineGraphDawingAnimated = 1 << 5,
+ MBXLineGraphDawingTypeLine = 1 << 1,
+ MBXLineGraphDawingTypeFill = 1 << 2,
+ MBXLineGraphDawingHidden = 1 << 3,
+ MBXLineGraphDawingAnimated = 1 << 4,
+ MBXLineGraphDawingTypeRepeatedMarker = 1 << 5
     
 }MBXLineGraphDawingType;
 
@@ -43,15 +43,7 @@ typedef enum
 
 typedef enum{
     MBXMarkerStyleDefault = 1 << 0,
-    MBXMarkerStyleFilled = 1 << 1,
-    MBXMarkerStyleImage = 1 << 2,
-    MBXMarkerStyleBig = 1 << 3,
-    MBXMarkerStyleMedium = 1 << 4,
-    MBXMarkerStyleSmall = 1 << 5,
-    MBXMarkerStyleMaxToParentWidth = 1 << 6,
-    MBXMarkerStyleHidden = 1 << 7,
-    MBXMarkerStyleAnimated = 1 << 7,
-    
+    MBXMarkerStyleMaxToParentWidth = 1 << 1
 }MBXMarkerStyle;
 
 @interface MBXGraphVM : NSObject
@@ -61,7 +53,6 @@ typedef enum{
 @property (nonatomic, strong) NSArray *pointsInView;
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) UIColor *fillColor;
-@property (nonatomic, strong) UIImage *markerImage;
 
 @property (nonatomic) CGFloat opacity;
 @property (nonatomic) CGFloat animationDuration;

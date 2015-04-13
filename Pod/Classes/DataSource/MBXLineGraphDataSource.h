@@ -24,7 +24,10 @@
 
 #import <Foundation/Foundation.h>
 #import "MBXGraphDataSource.h"
+#import "MBXChartVM.h"
+
 @interface MBXLineGraphDataSource : NSObject<MBXGraphDataSource>
 - (void)setMultipleGraphValues:(NSArray *)values;
 - (void)setGraphValues:(NSArray *)values;
+- (MBXChartVM *)chartVM;
 @end
