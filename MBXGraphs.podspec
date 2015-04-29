@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "MBXGraphs"
-  s.version          = "0.3.0"
+  s.version          = "0.3.1"
   s.summary          = "A simple library to show one or more graphs in a chart"
   s.homepage         = "https://github.com/tamarinda/MBXGraphs"
   s.license          = 'MIT'

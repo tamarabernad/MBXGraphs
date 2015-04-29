@@ -5,9 +5,27 @@
 [![License](https://img.shields.io/cocoapods/l/MBXGraphs.svg?style=flat)](http://cocoadocs.org/docsets/MBXGraphs)
 [![Platform](https://img.shields.io/cocoapods/p/MBXGraphs.svg?style=flat)](http://cocoadocs.org/docsets/MBXGraphs)
 
-MBXGraphs is a library to display one or more line graphs in a chart, with several displaying options (fill, no fill, dashed line, end-marker, etc.). The library also takes care about the XY axis, being able to customize them and displaying nice and distributed intervals.
+MBXGraphs is a library to display one or more line graphs in a chart, with several displaying options (fill, no fill, dashed line, end-marker, etc.). The library also takes care about the XY axes, being able to customize them and displaying nice and distributed intervals.
 
 It can be used with nib files as well as by code created views.
+
+####Features:
+The type of distribution on the axes can be chosen, there are two options
+
+* MBXLineGraphDataSourceAxisCalcValueDistribute
+Distributes the axes values taking into consideration the values gotten from the data.
+
+* MBXLineGraphDataSourceAxisCalcEquallyDistribute
+Distributes the axes values evenly throughout the view, not taking into consideration the values. Good for logarithmic distributed axes.
+
+The distribution of tickmarks can be chosen on the axes
+* MBXLineGraphDataSourceAxisCalcAutoTickmark
+Automatically calculates the best and "nicest" distribution and values to show on the axes. Gives somes space at the beginning and at the end to make the graph look nicer. Good for Y axes values.
+
+* MBXLineGraphDataSourceAxisCalcValueTickmark
+Uses the exact values from the data set as tickmarks and values to shw on the axes. Good for X axes values.
+
+
 
 ![Graphs image](Screenshots/graph-nib-code.png)
 
@@ -24,7 +42,7 @@ it, simply add the following line to your Podfile:
 
 ## Code Example
 
-```
+```objectivec
 #import "MBXViewController.h"
 #import "MBXLineGraphDataSource.h"
 #import "MBXGraphView.h"
