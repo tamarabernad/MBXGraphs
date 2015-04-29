@@ -9,13 +9,13 @@
 
 Pod::Spec.new do |s|
   s.name             = "MBXGraphs"
-  s.version          = "0.2.0"
+  s.version          = "0.3.0"
   s.summary          = "A simple library to show one or more graphs in a chart"
   s.homepage         = "https://github.com/tamarinda/MBXGraphs"
   s.license          = 'MIT'
   s.author           = { "tamarabernad" => "tamara.bernad@gmail.com" }
   s.source           = { :git => "https://github.com/tamarinda/MBXGraphs.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/tamarinda'
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true

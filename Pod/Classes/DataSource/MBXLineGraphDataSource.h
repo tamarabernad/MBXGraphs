@@ -26,8 +26,21 @@
 #import "MBXGraphDataSource.h"
 #import "MBXChartVM.h"
 
+typedef enum{
+    MBXLineGraphDataSourceAxisCalcNone = 1 << 0,
+    MBXLineGraphDataSourceAxisCalcAutoTickmark = 1 << 1,
+    MBXLineGraphDataSourceAxisCalcValueTickmark = 1 << 2,
+    MBXLineGraphDataSourceAxisCalcValueDistribute = 1 << 3,
+    MBXLineGraphDataSourceAxisCalcEquallyDistribute = 1 << 4
+    
+}MBXLineGraphDataSourceAxisCalc;
+
 @interface MBXLineGraphDataSource : NSObject<MBXGraphDataSource>
+@property (nonatomic, readonly) MBXLineGraphDataSourceAxisCalc xAxisCalc;
+@property (nonatomic, readonly) MBXLineGraphDataSourceAxisCalc yAxisCalc;
 - (void)setMultipleGraphValues:(NSArray *)values;
 - (void)setGraphValues:(NSArray *)values;
+- (void) setXAxisCalc:(MBXLineGraphDataSourceAxisCalc)xAxisCalc;
+- (void) setYAxisCalc:(MBXLineGraphDataSourceAxisCalc)yAxisCalc;
 - (MBXChartVM *)chartVM;
 @end

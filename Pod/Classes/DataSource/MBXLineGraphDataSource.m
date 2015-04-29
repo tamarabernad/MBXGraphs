@@ -40,6 +40,19 @@
 ////////////////////////////////////
 #pragma mark - Public
 ////////////////////////////////////
+- (instancetype)init{
+    if(self = [super init]){
+        _xAxisCalc = MBXLineGraphDataSourceAxisCalcValueTickmark | MBXLineGraphDataSourceAxisCalcEquallyDistribute;
+        _yAxisCalc = MBXLineGraphDataSourceAxisCalcAutoTickmark | MBXLineGraphDataSourceAxisCalcValueDistribute;
+    }
+    return self;
+}
+- (void)setXAxisCalc:(MBXLineGraphDataSourceAxisCalc)xAxisCalc{
+    _xAxisCalc = xAxisCalc;
+}
+- (void)setYAxisCalc:(MBXLineGraphDataSourceAxisCalc)yAxisCalc{
+    _yAxisCalc = yAxisCalc;
+}
 - (NSArray *)graphVMs{
     return self.chartVM.graphs;
 }
@@ -55,8 +68,14 @@
     for (NSArray *values in self.graphsValues) {
         NSArray *xValues = [self valuesForGraphValues:values inKey:@"x"];
         NSArray *yValues = [self valuesForGraphValues:values inKey:@"y"];
-        NSArray *yProportionValues = [self.dataUtils calculateProportionValues:yValues WithRange:self.yTotalRange];
-        NSArray *xProportionValues = [self.dataUtils calculateProportionValues:xValues WithRange:self.xTotalRange];
+        NSArray *yProportionValues = [self hasEqualDistribution:self.yAxisCalc] ?
+        [self.dataUtils calculateProportionValuesEquallyDistributed:yValues] :
+        [self.dataUtils calculateProportionValues:yValues WithRange:self.yTotalRange];
+        
+        NSArray *xProportionValues = [self hasEqualDistribution:self.xAxisCalc] ?
+        [self.dataUtils calculateProportionValuesEquallyDistributed:xValues] :
+        [self.dataUtils calculateProportionValues:xValues WithRange:self.xTotalRange];
+        
         MBXGraphVM *lineGraphVM =[MBXGraphVM new];
         lineGraphVM.uid = [NSString stringWithFormat:@"%lu",(long)index];
         lineGraphVM.proportionPoints = [self.dataUtils createProportionPointsWithXProportionValues:xProportionValues AndYProportionValues:yProportionValues];
@@ -66,8 +85,16 @@
     }
     self.chartVM.graphs = [NSArray arrayWithArray:graphs];
     
-    self.chartVM.yAxisVM = [self createAxisVMWithValues:[self allYValues]];
-    self.chartVM.xAxisVM = [self createAxisVMWithValues:[self allXValues]];
+    NSArray *xAxisValues = [self allXValuesNoDuplicates];
+    NSArray *yAxisValues = [self allYValuesNoDuplicates];
+    
+    self.chartVM.yAxisVM = [self hasAutoTickmark:self.yAxisCalc] ?
+    [self createAxisVMAutoTicksWithValues:yAxisValues WithCalc:self.yAxisCalc] :
+    [self createAxisVMValueTicksWithValues:yAxisValues WithCalc:self.yAxisCalc];
+    
+    self.chartVM.xAxisVM = [self hasAutoTickmark:self.xAxisCalc] ?
+    [self createAxisVMAutoTicksWithValues:xAxisValues WithCalc:self.xAxisCalc] :
+    [self createAxisVMValueTicksWithValues:xAxisValues WithCalc:self.xAxisCalc];
 }
 - (void)setMultipleGraphValues:(NSArray *)values{
     self.graphsValues = values;
@@ -100,17 +127,31 @@
 #pragma mark - Helpers
 ////////////////////////////////////
 - (void)calculateRanges{
-    //TODO: only y values are right now spreaded out nicely, x values are used as they come (thinking they would be something like years: 2005, 2006, etc) should they in some cases be as the y values, nicely speraded out with nice whole values?
-    self.xTotalRange = [self.dataUtils rangeForValues:[self allXValues]];
-    self.yTotalRange = [self.dataUtils rangeWithTicksForValues:[self allYValues]];
+    self.xTotalRange = [self hasAutoTickmark:self.xAxisCalc] ? [self.dataUtils rangeWithTicksForValues:[self allXValues]]: [self.dataUtils rangeForValues:[self allXValues]];
+    self.yTotalRange = [self hasAutoTickmark:self.yAxisCalc] ? [self.dataUtils rangeWithTicksForValues:[self allYValues]] : [self.dataUtils rangeForValues:[self allYValues]];
 }
-- (MBXAxisVM *)createAxisVMWithValues:(NSArray *)values{
+- (MBXAxisVM *)createAxisVMAutoTicksWithValues:(NSArray *)values WithCalc:(MBXLineGraphDataSourceAxisCalc)calc{
     MBXAxisVM *axisVM = [MBXAxisVM new];
     MBXValueRange xRange = [self.dataUtils rangeWithTicksForValues:values];
-    NSArray *xAxisIntervals =[self.dataUtils calculateIntervalsInRange:xRange];
-    axisVM.proportionValues = [self.dataUtils calculateProportionValues:xAxisIntervals WithRange:xRange];
+    NSArray *xAxisIntervals = [self.dataUtils calculateIntervalsInRange:xRange];
+    axisVM.proportionValues = [self hasEqualDistribution:calc] ? [self.dataUtils calculateProportionValuesEquallyDistributed:values] : [self.dataUtils calculateProportionValues:xAxisIntervals WithRange:xRange];
     axisVM.values = xAxisIntervals;
     return axisVM;
+}
+- (MBXAxisVM *)createAxisVMValueTicksWithValues:(NSArray *)values WithCalc:(MBXLineGraphDataSourceAxisCalc)calc{
+    MBXAxisVM *axisVM = [MBXAxisVM new];
+    MBXValueRange xRange = [self.dataUtils rangeForValues:values];
+    axisVM.proportionValues = [self hasEqualDistribution:calc] ?  [self.dataUtils calculateProportionValuesEquallyDistributed:values] : [self.dataUtils calculateProportionValues:values WithRange:xRange];
+    axisVM.values = values;
+    return axisVM;
+}
+- (NSArray *)allXValuesNoDuplicates{
+    NSArray *allValues = [self allValuesNoDuplicatesForKey:@"x"];
+    return allValues;
+}
+- (NSArray *)allYValuesNoDuplicates{
+    NSArray *allValues = [self allValuesNoDuplicatesForKey:@"y"];
+    return allValues;
 }
 - (NSArray *)allXValues
 {
@@ -118,6 +159,12 @@
 }
 - (NSArray *)allYValues{
     return [self allValuesForKey:@"y"];
+}
+- (NSArray *)allValuesNoDuplicatesForKey:(NSString *)key{
+    NSArray *allValues = [self allValuesForKey:key];
+    allValues = [allValues valueForKeyPath:@"@distinctUnionOfObjects.self"];
+    allValues = [allValues sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
+    return allValues;
 }
 - (NSArray *)allValuesForKey:(NSString *)key{
     //TODO convert to KVO, was getting null values...
@@ -133,5 +180,11 @@
         [valuesForKey addObject:[value objectForKey:key]];
     }
     return [NSArray arrayWithArray:valuesForKey];
+}
+- (BOOL)hasAutoTickmark:(MBXLineGraphDataSourceAxisCalc)calc{
+    return (calc & MBXLineGraphDataSourceAxisCalcAutoTickmark) == MBXLineGraphDataSourceAxisCalcAutoTickmark;
+}
+- (BOOL)hasEqualDistribution:(MBXLineGraphDataSourceAxisCalc)calc{
+    return (calc & MBXLineGraphDataSourceAxisCalcEquallyDistribute) == MBXLineGraphDataSourceAxisCalcEquallyDistribute;
 }
 @end
