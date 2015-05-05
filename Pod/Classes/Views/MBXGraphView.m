@@ -161,7 +161,7 @@
 
         if(![self.delegate MBXLineGraphView:self hasMarkerAtIndex:i])continue;
         
-        marker= [self.delegate MBXLineGraphView:self markerViewForPointAtIndex:i];
+        marker= [self.delegate MBXLineGraphView:self markerViewForGraphVM:graphVM ForPointAtIndex:i];
         [graphLayer addSublayer:marker];
         
         if (graphVM.markerStyle & MBXMarkerStyleMaxToParentWidth) {

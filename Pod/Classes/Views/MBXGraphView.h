@@ -36,7 +36,7 @@
 
 @protocol MBXGraphDelegate <NSObject>
 - (void) MBXLineGraphView:(MBXGraphView *)graphView configureAppearanceGraphVM:(MBXGraphVM *)graphVM;
-- (CALayer *) MBXLineGraphView:(MBXGraphView *)graphView markerViewForPointAtIndex:(NSInteger)index;
+- (CALayer *) MBXLineGraphView:(MBXGraphView *)graphView markerViewForGraphVM:(MBXGraphVM *)graphVM ForPointAtIndex:(NSInteger)index;
 - (CGSize) MBXLineGraphView:(MBXGraphView *)graphView markerSizeAtIndex:(NSInteger)index;
 - (BOOL) MBXLineGraphView:(MBXGraphView *)graphView hasMarkerAtIndex:(NSInteger)index;
 @end

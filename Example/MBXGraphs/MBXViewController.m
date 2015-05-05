@@ -153,12 +153,16 @@
         return YES;
     }
 }
-- (CALayer *)MBXLineGraphView:(MBXGraphView *)graphView markerViewForPointAtIndex:(NSInteger)index{
+- (CALayer *)MBXLineGraphView:(MBXGraphView *)graphView markerViewForGraphVM:(MBXGraphVM *)graphVM ForPointAtIndex:(NSInteger)index{
     CALayer *marker = [CALayer layer];
     [marker setMasksToBounds:YES];
-    [marker setBorderWidth:1.0];
-    [marker setBackgroundColor:[UIColor whiteColor].CGColor];
-    [marker setBorderColor:[UIColor greenColor].CGColor];
+    if ([graphVM.uid isEqualToString:@"0"]) {
+        [marker setBorderWidth:1.0];
+        [marker setBackgroundColor:[UIColor whiteColor].CGColor];
+        [marker setBorderColor:[UIColor greenColor].CGColor];
+    }else{
+        [marker setBackgroundColor:[UIColor greenColor].CGColor];
+    }
     [marker setCornerRadius:8/2];
     return marker;
 }
