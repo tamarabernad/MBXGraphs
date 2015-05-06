@@ -274,7 +274,7 @@ it, simply add the following line to your Podfile:
 
 ## Author
 
-Tamara Bernad, tamara.bernad@gmail.com
+Tamara Bernad, @tamarinda
 
 ## License
 
