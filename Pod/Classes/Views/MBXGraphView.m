@@ -168,7 +168,7 @@
             point.x = point.x > graphLayer.frame.size.width ? graphLayer.frame.size.width : point.x;
         }
         
-        if(previousGraphVM && animated){
+        if(previousGraphVM && animated && i<previousGraphVM.pointsInView.count){
             CGPoint fromEndpoint =[[previousGraphVM.pointsInView objectAtIndex:i] CGPointValue];
             if (previousGraphVM.markerStyle & MBXMarkerStyleMaxToParentWidth) {
                 fromEndpoint.x = fromEndpoint.x > graphLayer.frame.size.width ? graphLayer.frame.size.width : fromEndpoint.x;
