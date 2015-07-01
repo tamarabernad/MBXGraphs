@@ -28,6 +28,7 @@
 - (MBXValueRange)rangeWithTicksForValues:(NSArray *)values;
 - (MBXValueRange)rangeForValues:(NSArray *)values;
 - (NSArray *)calculateProportionValuesEquallyDistributed:(NSArray *)values;
+- (NSArray *)calculateProportionValuesEquallyDistributed:(NSArray *)values WithAllValues:(NSArray *)completeValues;
 - (NSArray *)calculateProportionValues:(NSArray *)values WithRange:(MBXValueRange )range;
 - (NSArray *)createProportionPointsWithXProportionValues:(NSArray *)xProportionValues AndYProportionValues:(NSArray *)yProportionValues;
 - (NSArray *)calculateIntervalsInRange:(MBXValueRange)range;

@@ -65,15 +65,19 @@
 - (void)reload{
     NSInteger index = 0;
     NSMutableArray *graphs = [NSMutableArray new];
+    
+    NSArray *allXValuesNoDuplicates = [self allXValuesNoDuplicates];
+    NSArray *allYValuesNoDuplicates = [self allYValuesNoDuplicates];
+    
     for (NSArray *values in self.graphsValues) {
         NSArray *xValues = [self valuesForGraphValues:values inKey:@"x"];
         NSArray *yValues = [self valuesForGraphValues:values inKey:@"y"];
         NSArray *yProportionValues = [self hasEqualDistribution:self.yAxisCalc] ?
-        [self.dataUtils calculateProportionValuesEquallyDistributed:yValues] :
+        [self.dataUtils calculateProportionValuesEquallyDistributed:yValues WithAllValues:allYValuesNoDuplicates] :
         [self.dataUtils calculateProportionValues:yValues WithRange:self.yTotalRange];
         
         NSArray *xProportionValues = [self hasEqualDistribution:self.xAxisCalc] ?
-        [self.dataUtils calculateProportionValuesEquallyDistributed:xValues] :
+        [self.dataUtils calculateProportionValuesEquallyDistributed:xValues WithAllValues:allXValuesNoDuplicates] :
         [self.dataUtils calculateProportionValues:xValues WithRange:self.xTotalRange];
         
         MBXGraphVM *lineGraphVM =[MBXGraphVM new];
@@ -85,8 +89,8 @@
     }
     self.chartVM.graphs = [NSArray arrayWithArray:graphs];
     
-    NSArray *xAxisValues = [self allXValuesNoDuplicates];
-    NSArray *yAxisValues = [self allYValuesNoDuplicates];
+    NSArray *xAxisValues = allXValuesNoDuplicates;
+    NSArray *yAxisValues = allYValuesNoDuplicates;
     
     self.chartVM.yAxisVM = [self hasAutoTickmark:self.yAxisCalc] ?
     [self createAxisVMAutoTicksWithValues:yAxisValues WithCalc:self.yAxisCalc] :

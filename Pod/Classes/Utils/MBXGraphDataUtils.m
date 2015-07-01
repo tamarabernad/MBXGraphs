@@ -25,6 +25,21 @@
 #import "MBXGraphDataUtils.h"
 #import "MBXNumberUtils.h"
 @implementation MBXGraphDataUtils
+- (NSArray *)calculateProportionValuesEquallyDistributed:(NSArray *)values WithAllValues:(NSArray *)completeValues{
+    
+    NSMutableArray *pointsArray=[[NSMutableArray alloc] init];
+    int valsIndex = 0;
+    for (NSUInteger i=0, n = completeValues.count; i<n; i++){
+        if(valsIndex>=values.count)break;
+        if ([[values objectAtIndex:valsIndex] isEqual:[completeValues objectAtIndex:i]]) {
+            double val= ((double)i)/((double)(completeValues.count-1));
+            [pointsArray addObject:@(val)];
+            valsIndex++;
+        }
+        
+    }
+    return pointsArray;
+}
 - (NSArray *)calculateProportionValuesEquallyDistributed:(NSArray *)values{
     NSMutableArray *pointsArray=[[NSMutableArray alloc] init];
     for (NSUInteger i=0, n = values.count; i<n; i++){
